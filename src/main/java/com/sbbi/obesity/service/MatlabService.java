@@ -11,10 +11,22 @@ import com.sbbi.obesity.matlab.SumMatlab;
 public class MatlabService {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public int goMatlab(){
+	public String goMatlab(){
 		
-		int goMAtlab = SumMatlab.goMAtlab();
-		return goMAtlab;
+		//int goMAtlab = SumMatlab.goMAtlab();
+		//return goMAtlab;
+		return SumMatlab.getFood();
+		
+	}
+	
+	@RequestMapping(value="/seg", method = RequestMethod.GET)
+	public String segmentation(){
+		
+		SumMatlab.segmentation();
+		//int goMAtlab = SumMatlab.goMAtlab();
+		//return goMAtlab;
+		return "ok";
+		
 	}
 	
 }

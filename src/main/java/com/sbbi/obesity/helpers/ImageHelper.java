@@ -14,6 +14,10 @@ public class ImageHelper {
 		return PATH + timeInMillis + getExtension(file.getOriginalFilename());
 	}
 	
+	public static String buildImagePath(MultipartFile file, String timeInMillis){
+		return PATH + timeInMillis + getExtension(file.getOriginalFilename());
+	}
+	
 	private static String getExtension(String fileName) {
 		return fileName.substring(fileName.indexOf('.'), fileName.length());
 	}

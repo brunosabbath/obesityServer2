@@ -1,17 +1,40 @@
 package com.sbbi.obesity.matlab;
 
-import com.mathworks.toolbox.javabuilder.MWArray;
 
 
 
 import com.mathworks.toolbox.javabuilder.MWException;
-import com.mathworks.toolbox.javabuilder.MWNumericArray;
 
-import somar.Class1;
+import SegmentationPipeline.Segmentation;
+import test.Class1;
 
 public class SumMatlab {
-
-	public static int goMAtlab(){
+	
+	public static void segmentation(){
+		try {
+			Segmentation s = new Segmentation();
+			s.SegmentationPipeline();
+		} catch (MWException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static String getFood(){
+		
+		Object result[] = null;
+		
+		try {
+			Class1 go = new Class1();
+			result = go.test(1);
+		} catch (MWException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result[0].toString();
+	}
+	
+	/*public static int goMAtlab(){
 		
 		Object[] result = null;
 		//MWNumericArray n = null;
@@ -35,6 +58,6 @@ public class SumMatlab {
 			MWNumericArray r = (MWNumericArray) result[0];
 			return (int) r.get(1);
 		
-	}
+	}*/
 	
 }

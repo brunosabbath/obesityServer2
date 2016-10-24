@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sbbi.obesity.builder.Builder;
 import com.sbbi.obesity.model.Food;
@@ -73,6 +75,29 @@ public class FoodDaoImpl {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public List<Food> list() {
+		PreparedStatement ps = null;
+		
+		List<Food> list = new ArrayList<Food>();
+		
+		try {
+			ps = conn.prepareStatement("SELECT * FROM food");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				Food food = new Food();
+				food = Builder.buildFood(rs);
+				list.add(food);
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 }

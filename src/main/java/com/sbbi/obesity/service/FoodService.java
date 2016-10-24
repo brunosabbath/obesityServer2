@@ -1,6 +1,8 @@
 package com.sbbi.obesity.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,21 @@ public class FoodService {
 	@RequestMapping(value = "/ping", method = RequestMethod.GET)
 	public Response ping(){
 		return new Response().setData("ping!!! hello :D");
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Food> list(){
+		
+		List<Food> list = new ArrayList<>();
+		
+		try {
+			FoodDaoImpl dao = new FoodDaoImpl(ConnectionFactory.getConnection());
+			list = dao.list();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
