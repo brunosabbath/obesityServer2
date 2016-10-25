@@ -14,14 +14,14 @@ import com.sbbi.obesity.helpers.ImageHelper;
 public class PicturesService {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody String upload(@RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2, 
-			@RequestParam("file3") MultipartFile file3, @RequestParam("file4") MultipartFile file4) {
+	public @ResponseBody String upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
+			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3) {
 		
 		
-		String s1 = saveImage(file1, "1");
-		String s2 = saveImage(file2, "2");
-		String s3 = saveImage(file3, "3");
-		String s4 = saveImage(file4, "4");
+		String s1 = saveImage(top, "1");
+		String s2 = saveImage(side1, "2");
+		String s3 = saveImage(side2, "3");
+		String s4 = saveImage(side3, "4");
 		
 		return null;
 		

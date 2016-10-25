@@ -5,8 +5,8 @@ package com.sbbi.obesity.matlab;
 
 import com.mathworks.toolbox.javabuilder.MWException;
 
+
 import SegmentationPipeline.Segmentation;
-import test.Class1;
 
 public class SumMatlab {
 	
@@ -19,7 +19,7 @@ public class SumMatlab {
 		}
 	}
 	
-	public static String getFood(){
+	/*public static String getFood(){
 		
 		Object result[] = null;
 		
@@ -32,7 +32,7 @@ public class SumMatlab {
 		}
 		
 		return result[0].toString();
-	}
+	}*/
 	
 	/*public static int goMAtlab(){
 		
