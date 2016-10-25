@@ -8,22 +8,33 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sbbi.obesity.helpers.ImageHelper;
+import com.sbbi.obesity.manager.ClassificationManager;
+import com.sbbi.obesity.model.classification.ClassificationReturn;
 
 @RestController
 @RequestMapping("/pictures")
 public class PicturesService {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody String upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
+	public @ResponseBody ClassificationReturn upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
 			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3) {
 		
+		String paths[] = new String[4];
 		
-		String s1 = saveImage(top, "1");
-		String s2 = saveImage(side1, "2");
-		String s3 = saveImage(side2, "3");
-		String s4 = saveImage(side3, "4");
+		if(top != null)
+			paths[0] = saveImage(top, "1");
 		
-		return null;
+		if(top != null)
+			paths[1] = saveImage(side1, "2");
+		
+		if(top != null)
+			paths[2] = saveImage(side2, "3");
+		
+		if(top != null)
+			paths[3] = saveImage(side3, "4");
+		
+		ClassificationManager m = new ClassificationManager(paths);
+		return m.makePredictions();
 		
 	}
 
@@ -36,7 +47,7 @@ public class PicturesService {
 		try {
 			ImageHelper.transferTo(imgPath, file);
 			//return new Response().setData("image uploaded");
-			return "image uploaded";
+			return imgPath;
 		} catch (Exception e) {
 			//return new Response().setError(e.getMessage());
 			return e.getMessage();

@@ -1,11 +1,13 @@
-package com.sbbi.obesity.model;
+package com.sbbi.obesity.model.classification;
 
-public class FoodMatlab implements Comparable<FoodMatlab>{
+public class FoodClassification implements Comparable<FoodClassification>{
 
+	private int id;
 	private String foodName;
 	private double value;
 	
-	public FoodMatlab(String foodName, double value){
+	public FoodClassification(int id, String foodName, double value){
+		this.id = id;
 		this.foodName = foodName;
 		this.value = value;
 	}
@@ -13,14 +15,14 @@ public class FoodMatlab implements Comparable<FoodMatlab>{
 	public String getFoodName() {
 		return foodName;
 	}
-	public FoodMatlab setFoodName(String foodName) {
+	public FoodClassification setFoodName(String foodName) {
 		this.foodName = foodName;
 		return this;
 	}
 	public double getValue() {
 		return value;
 	}
-	public FoodMatlab setValue(double value) {
+	public FoodClassification setValue(double value) {
 		this.value = value;
 		return this;
 	}
@@ -31,7 +33,7 @@ public class FoodMatlab implements Comparable<FoodMatlab>{
 	}
 	
 	@Override
-	public int compareTo(FoodMatlab other) {
+	public int compareTo(FoodClassification other) {
 		if(other.getValue() >= this.getValue())
 			return 1;
 		else

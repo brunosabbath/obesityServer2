@@ -17,7 +17,7 @@ public class Meal implements Serializable {
 	private Date date;
 	
 	//bi-directional many-to-one association to MealFood
-	private List<MealFood> mealFoods;
+	private List<Food> foods;
 
 	//bi-directional many-to-one association to Photo
 	private List<Photo> photos;
@@ -29,7 +29,7 @@ public class Meal implements Serializable {
 	private TypeMeal typeMeal;
 
 	public Meal() {
-		mealFoods = new ArrayList<MealFood>();
+		foods = new ArrayList<Food>();
 		photos = new ArrayList<Photo>();
 	}
 
@@ -50,24 +50,6 @@ public class Meal implements Serializable {
 		return this;
 	}
 
-	public List<MealFood> getMealFoods() {
-		return this.mealFoods;
-	}
-
-	public void setMealFoods(List<MealFood> mealFoods) {
-		this.mealFoods = mealFoods;
-	}
-
-	public void addMealFood(List<MealFood> mealFoodList) {
-		this.mealFoods = mealFoodList;
-	}
-
-	public MealFood removeMealFood(MealFood mealFood) {
-		getMealFoods().remove(mealFood);
-		mealFood.setMeal(null);
-
-		return mealFood;
-	}
 
 	public List<Photo> getPhotos() {
 		return this.photos;
@@ -98,7 +80,11 @@ public class Meal implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
+	public List<Food> getFoods(){
+		return this.foods;
+	}
+	
 	public TypeMeal getTypeMeal() {
 		return this.typeMeal;
 	}
