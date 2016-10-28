@@ -1,6 +1,7 @@
 package com.sbbi.obesity.test;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,6 @@ import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.manager.MealManager;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.Meal;
-import com.sbbi.obesity.model.MealFood;
 import com.sbbi.obesity.model.TypeMeal;
 
 public class TestMeal {
@@ -36,7 +36,7 @@ public class TestMeal {
 			quantity[1] = 150;
 			
 			Meal meal = new Meal();
-			List<MealFood> mealFoodList = new ArrayList<MealFood>();
+			/*List<MealFood> mealFoodList = new ArrayList<MealFood>();
 			
 			for(Food food : list){
 				mealFoodList.add(new MealFood(food));
@@ -46,7 +46,7 @@ public class TestMeal {
 			meal.setTypeMeal(new TypeMeal(typeMeal));
 			meal.setDate(new Date());
 			
-			manager.createMeal(meal, quantity);
+			manager.createMeal(meal, quantity);*/
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

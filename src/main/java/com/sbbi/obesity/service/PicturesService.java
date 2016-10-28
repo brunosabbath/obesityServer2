@@ -16,7 +16,7 @@ import com.sbbi.obesity.model.classification.ClassificationReturn;
 public class PicturesService {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody ClassificationReturn upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
+	public @ResponseBody String[] upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
 			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3) {
 		
 		String paths[] = new String[4];

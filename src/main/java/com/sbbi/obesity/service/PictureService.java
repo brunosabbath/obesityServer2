@@ -23,7 +23,13 @@ import test.ClassifyTop;
 @RequestMapping("/picture")
 public class PictureService {
 	
-	String foods[] = {"Apple", "Banana", "Blueberry", "Carrot", "Chips", "Grape", "Grilled chicken breast", "Orange", "Peach", "Raspberry", "Rice", "Sandwich bread"};
+	String foods[] = {"Apple", "Banana", "Blueberry", "Carrot", "Chips", "Grape", "Grilled chicken breast", "Orange", "Pear", "Peach", "Raspberry", "Rice", "Sandwich bread"};
+	private final int LALBELS = 0;
+	private final int SCORES = 1;
+	private final int COST = 2;
+	private final int AREA_FOOD_1 = 3;
+	private final int AREA_FOOD_2 = 4;
+	private final int AREA_FOOD_3 = 5;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody String upload(@RequestParam("file") MultipartFile file) {
@@ -37,23 +43,29 @@ public class PictureService {
 		try {
 			ImageHelper.transferTo(imgPath, file);
 			ClassifyTop classify = new ClassifyTop();
-			result = classify.test(3,imgPath);
+			result = classify.test(6,imgPath);
 			
-			Object object = result[1];
+			Object object = result[SCORES];
 			
 			MWNumericArray r = (MWNumericArray) object;
 				
-			List<FoodClassification> list = new ArrayList<FoodClassification>();
+			List<FoodClassification> scoresFood1 = new ArrayList<FoodClassification>();
+			List<FoodClassification> scoresFood2 = new ArrayList<FoodClassification>();
+			List<FoodClassification> scoresFood3 = new ArrayList<FoodClassification>();
 						
-			for(int i = 0; i < foods.length; i++){
-				list.add(new FoodClassification(i, foods[i], (double) r.get(i+1)));
+			for(int i = 0, index = 0; index < foods.length; i = i + 3, index++){
+				scoresFood1.add(new FoodClassification(index, foods[index], (double) r.get(i+1)));
+				scoresFood2.add(new FoodClassification(index, foods[index], (double) r.get(i+2)));
+				scoresFood3.add(new FoodClassification(index, foods[index], (double) r.get(i+3)));
 			}
 			
-			Collections.sort(list);
+			Collections.sort(scoresFood1);
+			Collections.sort(scoresFood2);
+			Collections.sort(scoresFood3);
 			
-			System.out.println("youre eating: " + result[0]);
+			/*System.out.println("youre eating: " + result[0]);
 			for(FoodClassification f : list)
-				System.out.println(f);
+				System.out.println(f);*/
 			
 			//return new Response().setData("image uploaded");
 			return "image uploaded";
