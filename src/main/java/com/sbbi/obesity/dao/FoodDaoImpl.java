@@ -55,7 +55,6 @@ public class FoodDaoImpl {
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()){
-				
 				food = Builder.buildFood(rs);
 				
 			}

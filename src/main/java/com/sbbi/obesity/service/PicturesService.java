@@ -10,14 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sbbi.obesity.helpers.ImageHelper;
 import com.sbbi.obesity.manager.ClassificationManager;
 import com.sbbi.obesity.model.classification.ClassificationReturn;
-import com.sbbi.obesity.response.ResponseFoodName;
+import com.sbbi.obesity.response.ResponseFood;
 
 @RestController
 @RequestMapping("/pictures")
 public class PicturesService {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody ResponseFoodName upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
+	public @ResponseBody ResponseFood upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
 			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3) {
 		
 		String paths[] = new String[4];

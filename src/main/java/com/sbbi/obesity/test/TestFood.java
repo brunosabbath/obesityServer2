@@ -21,7 +21,7 @@ public class TestFood {
 			
 			System.out.println(food);
 			
-			food.changeAmountGrams(150);
+			food.changeAmountGrams(100);
 			
 			System.out.println(food);
 			
