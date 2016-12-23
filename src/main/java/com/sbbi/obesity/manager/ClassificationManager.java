@@ -36,7 +36,7 @@ public class ClassificationManager {
 	
 	public ClassificationManager(String[] paths){
 		this.paths = paths;
-		TOTAL_FOOD_DB = foods.length;
+		TOTAL_FOOD_DB = 13;
 		foods = Constraints.foods;
 		fingerArea = MY_FINGER_HEIGHT * MY_FINGER_WIDTH;
 	}

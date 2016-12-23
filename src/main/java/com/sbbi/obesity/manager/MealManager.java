@@ -9,6 +9,8 @@ import com.sbbi.obesity.dao.MealDaoImpl;
 import com.sbbi.obesity.dao.MealFoodDaoImpl;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.Meal;
+import com.sbbi.obesity.model.SendMeal;
+import com.sbbi.obesity.model.TypeMeal;
 
 public class MealManager {
 
@@ -39,6 +41,25 @@ public class MealManager {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public void post(SendMeal sendMeal) {
+		
+		int mealId = saveMeal(sendMeal);
+		
+		//saveMealFood
+		
+	}
+
+	private int saveMeal(SendMeal sendMeal) {
+		
+		Meal meal = new Meal();
+		meal.setDate(new Date()).setTypeMeal(new TypeMeal(1));
+		
+		MealDaoImpl mealDao = new MealDaoImpl(connection);
+		int mealId = mealDao.insert(meal);
+		
+		return mealId;
 	}
 	
 }
