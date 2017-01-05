@@ -11,8 +11,17 @@ public class SendMeal {
     private Food nutrients1;
     private Food nutrients2;
     private Food nutrients3;
+    private int typeMeal;
 
-    public String getFood1() {
+    public int getTypeMeal() {
+		return typeMeal;
+	}
+
+	public void setTypeMeal(int typeMeal) {
+		this.typeMeal = typeMeal;
+	}
+
+	public String getFood1() {
         return food1;
     }
 

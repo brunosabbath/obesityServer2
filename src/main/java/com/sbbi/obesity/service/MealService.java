@@ -26,6 +26,10 @@ public class MealService {
 			connection = ConnectionFactory.getConnection();
 			MealManager mealManager = new MealManager(connection);
 			
+			//meal = updateMealWeight(meal);
+			
+			System.out.println("meal");
+			
 			//mealManager.post(meal);
 			
 			return true;
