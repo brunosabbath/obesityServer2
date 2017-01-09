@@ -16,18 +16,15 @@ public class MealFoodDaoImpl {
 		this.connection = connection;
 	}
 
-	public void insert(Meal meal, int mealId, double[] quantity) {
+	public void insert(int mealId, int foodId, double quantity) {
 		
 		try {
 			
-			for(int i = 0; i < meal.getFoods().size(); i++){
-				PreparedStatement ps = connection.prepareStatement("INSERT INTO mealFood (mealId, foodId, quantity) VALUES (?,?,?)");
-				ps.setInt(1, mealId);
-				ps.setInt(2, meal.getFoods().get(i).getId());
-				ps.setDouble(3, quantity[i]);
-				ps.execute();
-			}
-			
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO mealFood (mealId, foodId, quantity) VALUES (?,?,?)");
+			ps.setInt(1, mealId);
+			ps.setInt(2, foodId);
+			ps.setDouble(3, quantity);
+			ps.execute();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

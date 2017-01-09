@@ -30,7 +30,7 @@ public class MealService {
 			
 			System.out.println("meal");
 			
-			//mealManager.post(meal);
+			mealManager.post(meal);
 			
 			return true;
 		} catch (SQLException e) {
@@ -42,8 +42,6 @@ public class MealService {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		
 		return false;
 	}
