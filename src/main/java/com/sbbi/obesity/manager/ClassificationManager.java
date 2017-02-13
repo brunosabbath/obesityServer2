@@ -26,9 +26,8 @@ public class ClassificationManager {
 	private final int SIDE_2 = 2;
 	private final int SIDE_3 = 3;
 	private final int TOTAL_FOOD_DB;
-	private final int TOTAL_FOOD_PLATE = 3;
-	String foods[];
-	double fingerArea;
+	private String foods[];
+	private double fingerArea;
 	private final double MY_FINGER_WIDTH = 4.5;//THIS IS MY THUMB
 	private final double MY_FINGER_HEIGHT = 2;//THIS IS MY THUMB
 	private volatile Connection connection; 
@@ -90,7 +89,6 @@ public class ClassificationManager {
 			double areaFingerPixel = (double)areaFingerObj.get(1);//getPixels from area finger
 			
 			Side sideImgResults = new Side();
-			
 			Object sideResult1[] = sideImgResults.sideImage(2, paths[SIDE_1]);//analyzes side image food 1
 			Object sideResult2[] = sideImgResults.sideImage(2, paths[SIDE_2]);//analyzes side image food 2
 			Object sideResult3[] = sideImgResults.sideImage(2, paths[SIDE_3]);//analyzes side image food 3
@@ -129,6 +127,8 @@ public class ClassificationManager {
 			
 			//preparing response
 			response.setNutrientsFood1(food1).setNutrientsFood2(food2).setNutrientsFood3(food3);
+			
+			//TODO metabolic pathway
 			
 		} catch (Exception e) {
 			//return new Response().setError(e.getMessage());

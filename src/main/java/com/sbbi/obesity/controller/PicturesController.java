@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sbbi.obesity.builder.MetabolicBuilder;
 import com.sbbi.obesity.helpers.ImageHelper;
 import com.sbbi.obesity.manager.ClassificationManager;
+import com.sbbi.obesity.manager.MetabolicManager;
 import com.sbbi.obesity.model.classification.ClassificationReturn;
 import com.sbbi.obesity.response.ResponseFood;
 
@@ -25,18 +27,23 @@ public class PicturesController {
 		if(top != null)
 			paths[0] = saveImage(top, "1");
 		
-		if(top != null)
+		if(side1 != null)
 			paths[1] = saveImage(side1, "2");
 		
-		if(top != null)
+		if(side2 != null)
 			paths[2] = saveImage(side2, "3");
 		
-		if(top != null)
+		if(side3 != null)
 			paths[3] = saveImage(side3, "4");
 		
 		System.out.println("image uploaded, calling manager");
 		
 		ClassificationManager m = new ClassificationManager(paths);
+		ResponseFood response = m.makePredictions();
+		
+		MetabolicManager metabolic = MetabolicBuilder.build(response);
+		metabolic.runMetabolic();
+		
 		return m.makePredictions();
 		
 	}
