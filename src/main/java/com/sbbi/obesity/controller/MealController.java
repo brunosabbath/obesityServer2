@@ -1,4 +1,4 @@
-package com.sbbi.obesity.service;
+package com.sbbi.obesity.controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import com.sbbi.obesity.model.SendMeal;
 
 @RestController
 @RequestMapping("/meal")
-public class MealService {
+public class MealController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public boolean post(@RequestBody SendMeal meal){

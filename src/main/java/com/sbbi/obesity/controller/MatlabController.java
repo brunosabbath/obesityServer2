@@ -1,4 +1,4 @@
-package com.sbbi.obesity.service;
+package com.sbbi.obesity.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/matlab")
-public class MatlabService {
+public class MatlabController {
 
 	
 	@RequestMapping(value="/seg", method = RequestMethod.GET)

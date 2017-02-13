@@ -29,11 +29,11 @@ public class Food implements Serializable {
 
 	private double lipid;
 
-	private String name;
-
 	private double protein;
 
 	private double sugar;
+	
+	private String name;
 
 	private List<Meal> meals;
 

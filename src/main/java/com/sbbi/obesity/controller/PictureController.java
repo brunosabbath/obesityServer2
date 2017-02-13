@@ -1,4 +1,4 @@
-package com.sbbi.obesity.service;
+package com.sbbi.obesity.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ import test.ClassifyTop;
 
 @RestController
 @RequestMapping("/picture")
-public class PictureService {
+public class PictureController {
 	
 	String foods[] = {"Apple", "Banana", "Blueberry", "Carrot", "Chips", "Grape", "Grilled chicken breast", "Orange", "Pear", "Peach", "Raspberry", "Rice", "Sandwich bread"};
 	private final int LALBELS = 0;

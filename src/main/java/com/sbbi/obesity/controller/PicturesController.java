@@ -1,4 +1,4 @@
-package com.sbbi.obesity.service;
+package com.sbbi.obesity.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +14,7 @@ import com.sbbi.obesity.response.ResponseFood;
 
 @RestController
 @RequestMapping("/pictures")
-public class PicturesService {
+public class PicturesController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody ResponseFood upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 

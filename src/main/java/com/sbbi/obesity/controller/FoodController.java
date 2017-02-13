@@ -1,4 +1,4 @@
-package com.sbbi.obesity.service;
+package com.sbbi.obesity.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import com.sbbi.obesity.response.Response;
 
 @RestController
 @RequestMapping("/food")
-public class FoodService {
+public class FoodController {
 	
 	private static final int NO_ID = 0;
 	
