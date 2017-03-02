@@ -32,48 +32,54 @@ public class User implements Serializable {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public User setId(int id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public User setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 
 	public String getHeight() {
 		return this.height;
 	}
 
-	public void setHeight(String height) {
+	public User setHeight(String height) {
 		this.height = height;
+		return this;
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public User setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getPassword() {
 		return this.password;
 	}
 
-	public void setPassword(String password) {
+	public User setPassword(String password) {
 		this.password = password;
+		return this;
 	}
 
 	public double getWeight() {
 		return this.weight;
 	}
 
-	public void setWeight(double weight) {
+	public User setWeight(double weight) {
 		this.weight = weight;
+		return this;
 	}
 
 	public List<Meal> getMeals() {
@@ -87,13 +93,6 @@ public class User implements Serializable {
 	public Meal addMeal(Meal meal) {
 		getMeals().add(meal);
 		meal.setUser(this);
-
-		return meal;
-	}
-
-	public Meal removeMeal(Meal meal) {
-		getMeals().remove(meal);
-		meal.setUser(null);
 
 		return meal;
 	}

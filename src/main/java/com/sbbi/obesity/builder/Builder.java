@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.TypeMeal;
+import com.sbbi.obesity.model.User;
 
 public class Builder {
 
@@ -35,6 +36,19 @@ public class Builder {
 		}
 		
 		return type;
+	}
+
+	public static User buildUser(ResultSet rs) {
+		
+		User user = new User();
+		
+		try {
+			user.setId(rs.getInt(1)).setName(rs.getString(2));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
 	
 }
