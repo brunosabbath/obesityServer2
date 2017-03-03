@@ -35,7 +35,7 @@ public class UserManager {
 			return false;
 	}
 
-	public int insert(User user) {
+	public User insert(User user) {
 		
 		int id = INVALID;
 		UserDaoImpl dao = new UserDaoImpl(connection);
@@ -46,7 +46,10 @@ public class UserManager {
 			id = dao.insert(user);
 		}
 		
-		return id;
+		user.removePassword();
+		user.setId(id);
+		
+		return user;
 		
 	}
 

@@ -23,8 +23,8 @@ public class UserController {
 
 	private final int NOT_FOUND = -1;
 	
-	@RequestMapping(method = RequestMethod.POST, value="/insert")
-	public int inseertUser(@RequestBody User user) {
+	@RequestMapping(method = RequestMethod.POST, value="/signup")
+	public User signUp(@RequestBody User user) {
 
 		Connection connection = null;
 		int id = NOT_FOUND;
@@ -32,13 +32,13 @@ public class UserController {
 		try {
 			connection = ConnectionFactory.getConnection();
 			UserManager manager = new UserManager(connection);
-			id = manager.insert(user);
+			user = manager.insert(user);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return id;
+		return user;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -90,6 +90,10 @@ public class User implements Serializable {
 		this.meals = meals;
 	}
 
+	public void removePassword(){
+		this.password = "";
+	}
+	
 	public Meal addMeal(Meal meal) {
 		getMeals().add(meal);
 		meal.setUser(this);
