@@ -14,17 +14,17 @@ public class UserManager {
 		this.connection = connection;
 	}
 
-	public int login(User user) {
+	public User login(User user) {
 		
 		UserDaoImpl dao = new UserDaoImpl(connection);
 		
 		User userAfterLogin = dao.verifyCredentialsAndGetUser(user);
 		
 		if(isValidUser(userAfterLogin)){
-			return userAfterLogin.getId();
+			return userAfterLogin;
 		}
 		
-		return INVALID;
+		return null;
 		
 	}
 

@@ -25,8 +25,8 @@ public class UserDaoImpl {
 		try {
 			
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO user (name, email, password) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, user.getId());
-			ps.setString(2, user.getName());
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.executeUpdate();
 			
@@ -59,6 +59,7 @@ public class UserDaoImpl {
 				
 			}
 			
+			return userLogin;
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

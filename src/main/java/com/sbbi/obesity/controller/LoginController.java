@@ -19,7 +19,7 @@ public class LoginController {
 	private final int NOT_FOUND = -1;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public int login(@RequestBody User user) {
+	public User login(@RequestBody User user) {
 
 		Connection connection = null;
 		int id = NOT_FOUND;
@@ -27,13 +27,14 @@ public class LoginController {
 		try {
 			connection = ConnectionFactory.getConnection();
 			UserManager manager = new UserManager(connection);
-			id = manager.login(user);
-
+			User loggedInUser = manager.login(user);
+			
+			return loggedInUser;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return id;
+		return null;
 
 	}
 
