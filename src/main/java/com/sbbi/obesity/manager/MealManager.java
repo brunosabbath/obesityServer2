@@ -12,6 +12,7 @@ import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.Meal;
 import com.sbbi.obesity.model.SendMeal;
 import com.sbbi.obesity.model.TypeMeal;
+import com.sbbi.obesity.model.User;
 
 public class MealManager {
 
@@ -101,10 +102,22 @@ public class MealManager {
 		
 		meal.setDate(new Date()).setTypeMeal(typeMeal);
 		
+		User user = new User();
+		user.setId(sendMeal.getUserId());
+		meal.setUser(user);
+		
 		MealDaoImpl mealDao = new MealDaoImpl(connection);
 		int mealId = mealDao.insert(meal);
 		
 		return mealId;
+	}
+
+	public void list(Integer userId) {
+		
+		MealDaoImpl dao = new MealDaoImpl(connection);
+		List<Food> listFood = dao.list(userId);
+		
+		
 	}
 	
 }

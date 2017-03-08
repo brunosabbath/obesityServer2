@@ -3,6 +3,7 @@ package com.sbbi.obesity.controller;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,34 @@ public class MealController {
 			System.out.println("meal");
 			
 			mealManager.post(meal);
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return false;
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public boolean list(@PathVariable Integer id){
+		
+	/*@RequestMapping(method = RequestMethod.GET)
+	public boolean list(){	
+		int userId = 5;*/
+		Connection connection = null;
+
+		try {
+			connection = ConnectionFactory.getConnection();
+			MealManager mealManager = new MealManager(connection);
+			
+			mealManager.list(id);
 			
 			return true;
 		} catch (SQLException e) {

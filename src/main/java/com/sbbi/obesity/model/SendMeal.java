@@ -1,7 +1,8 @@
 package com.sbbi.obesity.model;
 
 public class SendMeal {
-
+	
+	private int userId;
 	private String food1;
     private String food2;
     private String food3;
@@ -13,7 +14,15 @@ public class SendMeal {
     private Food nutrients3;
     private int typeMeal;
 
-    public int getTypeMeal() {
+    public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getTypeMeal() {
 		return typeMeal;
 	}
 

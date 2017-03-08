@@ -45,7 +45,7 @@ public class UserDaoImpl {
 		
 		PreparedStatement ps = null;
 		
-		User userLogin = new User();
+		User userLogin = null;
 		
 		try {
 			ps = connection.prepareStatement("SELECT * FROM user WHERE email = ? AND password = ?");
