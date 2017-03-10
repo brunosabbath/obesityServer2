@@ -5,12 +5,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sbbi.obesity.builder.Builder;
 import com.sbbi.obesity.helpers.DateHelper;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.Meal;
+import com.sbbi.obesity.model.pojo.FoodPojo;
+import com.sbbi.obesity.model.pojo.MealPojo;
 
 public class MealDaoImpl {
 
@@ -77,36 +80,55 @@ public class MealDaoImpl {
 		return null;
 	}
 
-	public List<Food> list(Integer userId) {
+	public List<MealPojo> list(Integer userId) {
 
 		PreparedStatement ps = null;
 		
+		List<MealPojo> list = new ArrayList<MealPojo>();
+		
 		try {
-			ps = connection.prepareStatement("SELECT m.date, mf.foodId, mf.quantity, f.name, f.energy, f.protein, f.lipid, f.carbohydrate, f.fiber, f.sugar, f.cholesterol, tm.type FROM meal AS m "+
-											"INNER JOIN mealFood AS mf ON m.id = mf.mealId "+
-											"INNER JOIN food AS f ON f.id = mf.foodId "+
-											"INNER JOIN typeMeal AS tm ON tm.id = m.type_meal " + 
-											"WHERE m.user_id = ?");
+			ps = connection.prepareStatement("SELECT m.id, m.date, tm.type FROM meal AS m INNER JOIN typeMeal AS tm ON tm.id = m.type_meal WHERE m.user_id = ?");
 			ps.setInt(1,userId);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){
 				
-				Food food = new Food();
-				food.setName(rs.getString(4)).setEnergy(rs.getDouble(5)).setProtein(rs.getDouble(6))
-							.setLipid(rs.getDouble(7)).setCarbohydrate(rs.getDouble(8)).setFiber(rs.getDouble(9))
-							.setSugar(rs.getDouble(10)).setCholesterol(rs.getDouble(11));
-				String typeMeal = rs.getString(12);
-				System.out.println(rs.getDouble(3));
+				String type = rs.getString(3);
+				int mealId = rs.getInt(1);
+				MealPojo mealPojo = new MealPojo();
+				mealPojo.setType(type);
+				
+				PreparedStatement psFood = connection.prepareStatement("SELECT mf.quantity, f.name, f.energy, f.protein, f.lipid, f.carbohydrate, f.fiber, f.sugar, f.cholesterol " + 
+				"FROM mealFood as mf INNER JOIN food AS f on f.id = mf.foodId WHERE mealId = ?");
+				
+				psFood.setInt(1, mealId);
+				
+				ResultSet rsFood = psFood.executeQuery();
+				
+				while(rsFood.next()){
+					FoodPojo pojo = new FoodPojo();
+					
+					double quantity = rsFood.getDouble(1);
+					
+					pojo.setName(rsFood.getString(2)).setEnergy(rsFood.getDouble(3)).setProtein(rsFood.getDouble(4))
+					.setLipid(rsFood.getDouble(5)).setCarbohydrate(rsFood.getDouble(6)).setFiber(rsFood.getDouble(7))
+					.setSugar(rsFood.getDouble(8)).setCholesterol(rsFood.getDouble(9));
+					
+					pojo.changeAmountGrams(quantity);
+					
+					mealPojo.addFood(pojo);
+				}
+				
+				list.add(mealPojo);
 				
 			}
+			
+			return list;
 			
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
-		
-		
 		
 		return null;
 	}

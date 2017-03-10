@@ -3,26 +3,26 @@ package com.sbbi.obesity.model.pojo;
 public class FoodPojo {
 
 	private double carbohydrate;
-
 	private double cholesterol;
-
 	private double energy;
-	
 	private double fattyAcidsMonounsaturated;
-	
 	private double fattyAcidsPolyunsaturated;
-
 	private double fattyAcidsSaturated;
-
 	private double fattyAcidTrans;
-
 	private double fiber;
-
 	private double lipid;
-
 	private double protein;
-
 	private double sugar;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public FoodPojo setName(String name) {
+		this.name = name;
+		return this;
+	}
 
 	public double getCarbohydrate() {
 		return carbohydrate;
@@ -121,6 +121,21 @@ public class FoodPojo {
 	public FoodPojo setSugar(double sugar) {
 		this.sugar = sugar;
 		return this;
+	}
+	
+	public void changeAmountGrams(double grams){
+		grams = grams / 100;
+		this.energy *= grams;
+		this.protein *= grams;
+		this.lipid *= grams;
+		this.carbohydrate *= grams;
+		this.fiber *= grams;
+		this.sugar *= grams;
+		this.fattyAcidsSaturated *= grams;
+		this.fattyAcidsMonounsaturated *= grams;
+		this.fattyAcidsPolyunsaturated *= grams;
+		this.fattyAcidTrans *= grams;
+		this.cholesterol *= grams;
 	}
 	
 }

@@ -13,6 +13,7 @@ import com.sbbi.obesity.model.Meal;
 import com.sbbi.obesity.model.SendMeal;
 import com.sbbi.obesity.model.TypeMeal;
 import com.sbbi.obesity.model.User;
+import com.sbbi.obesity.model.pojo.MealPojo;
 
 public class MealManager {
 
@@ -112,11 +113,11 @@ public class MealManager {
 		return mealId;
 	}
 
-	public void list(Integer userId) {
+	public List<MealPojo> list(Integer userId) {
 		
 		MealDaoImpl dao = new MealDaoImpl(connection);
-		List<Food> listFood = dao.list(userId);
-		
+		List<MealPojo> mealList = dao.list(userId);
+		return mealList;
 		
 	}
 	

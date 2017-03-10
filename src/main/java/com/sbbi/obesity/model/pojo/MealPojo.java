@@ -1,30 +1,32 @@
 package com.sbbi.obesity.model.pojo;
 
-import com.sbbi.obesity.model.Food;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MealPojo {
 
-	private Food food1;
-	private Food food2;
-	private Food food3;
+	private String type;
 	
-	public Food getFood1() {
-		return food1;
+	private List<FoodPojo> listFood;
+	
+	public MealPojo(){
+		listFood = new ArrayList<FoodPojo>();
 	}
-	public void setFood1(Food food1) {
-		this.food1 = food1;
+	
+	public String getType() {
+		return type;
 	}
-	public Food getFood2() {
-		return food2;
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	public void setFood2(Food food2) {
-		this.food2 = food2;
+
+	public List<FoodPojo> getListFood() {
+		return listFood;
 	}
-	public Food getFood3() {
-		return food3;
-	}
-	public void setFood3(Food food3) {
-		this.food3 = food3;
+
+	public void addFood(FoodPojo food) {
+		this.listFood.add(food);
 	}
 	
 }

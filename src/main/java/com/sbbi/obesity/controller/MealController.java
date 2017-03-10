@@ -2,6 +2,7 @@ package com.sbbi.obesity.controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.manager.MealManager;
 import com.sbbi.obesity.model.SendMeal;
+import com.sbbi.obesity.model.pojo.MealPojo;
 
 
 @RestController
@@ -48,7 +50,7 @@ public class MealController {
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public boolean list(@PathVariable Integer id){
+	public List<MealPojo> list(@PathVariable Integer id){
 		
 	/*@RequestMapping(method = RequestMethod.GET)
 	public boolean list(){	
@@ -59,9 +61,10 @@ public class MealController {
 			connection = ConnectionFactory.getConnection();
 			MealManager mealManager = new MealManager(connection);
 			
-			mealManager.list(id);
+			List<MealPojo> meal = mealManager.list(id);
 			
-			return true;
+			return meal;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -72,7 +75,7 @@ public class MealController {
 			}
 		}
 		
-		return false;
+		return null;
 	}
 	
 }
