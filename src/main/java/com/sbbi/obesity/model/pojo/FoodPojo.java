@@ -14,9 +14,19 @@ public class FoodPojo {
 	private double protein;
 	private double sugar;
 	private String name;
+	private double grams;
 
 	public String getName() {
 		return name;
+	}
+
+	public double getGrams() {
+		return grams;
+	}
+
+	public FoodPojo setGrams(double grams) {
+		this.grams = grams;
+		return this;
 	}
 
 	public FoodPojo setName(String name) {
@@ -124,7 +134,7 @@ public class FoodPojo {
 	}
 	
 	public void changeAmountGrams(double grams){
-		grams = grams / 100;
+		this.grams = grams / 100;
 		this.energy *= grams;
 		this.protein *= grams;
 		this.lipid *= grams;
@@ -136,6 +146,11 @@ public class FoodPojo {
 		this.fattyAcidsPolyunsaturated *= grams;
 		this.fattyAcidTrans *= grams;
 		this.cholesterol *= grams;
+	}
+	
+	@Override
+	public String toString() {
+		return "name: " + getName() + ", energy: " + getEnergy();
 	}
 	
 }

@@ -12,8 +12,6 @@ public class TestFood {
 
 	public static void main(String[] args) {
 		
-		Connection connection;
-		
 		try {
 			FoodDaoImpl dao = new FoodDaoImpl(ConnectionFactory.getConnection());
 			

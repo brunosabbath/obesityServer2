@@ -81,6 +81,10 @@ public class Meal implements Serializable {
 		this.user = user;
 	}
 	
+	public void addFood(Food food){
+		this.foods.add(food);
+	}
+	
 	public List<Food> getFoods(){
 		return this.foods;
 	}
@@ -91,6 +95,15 @@ public class Meal implements Serializable {
 
 	public void setTypeMeal(TypeMeal typeMealBean) {
 		this.typeMeal = typeMealBean;
+	}
+	
+	public double getTotalCaloriesMeal(){
+		double totalCalories = 0;
+		
+		for(Food food : foods)
+			totalCalories = totalCalories + food.getEnergy();
+		
+		return totalCalories;
 	}
 
 }

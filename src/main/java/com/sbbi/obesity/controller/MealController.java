@@ -49,7 +49,7 @@ public class MealController {
 		return false;
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/user/{id}", method = RequestMethod.GET)
 	public List<MealPojo> list(@PathVariable Integer id){
 		
 	/*@RequestMapping(method = RequestMethod.GET)

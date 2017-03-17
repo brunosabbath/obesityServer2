@@ -101,4 +101,8 @@ public class User implements Serializable {
 		return meal;
 	}
 
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

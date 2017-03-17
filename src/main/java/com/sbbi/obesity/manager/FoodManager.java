@@ -1,6 +1,7 @@
 package com.sbbi.obesity.manager;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import com.sbbi.obesity.dao.FoodDaoImpl;
 import com.sbbi.obesity.model.Food;
@@ -25,6 +26,14 @@ public class FoodManager {
 		
 		return food;
 		
+	}
+	
+	public void close(){
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
