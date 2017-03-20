@@ -32,9 +32,14 @@ public class FrequentItems implements Comparable<FrequentItems>{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	@Override
 	public int compareTo(FrequentItems o) {
-		if(o.getFrequency() > this.getFrequency())
+		/*if(o.getFrequency() > this.getFrequency())
+			return 1;
+		else
+			return -1;*/
+		if(o.getCalories() > this.getCalories())
 			return 1;
 		else
 			return -1;

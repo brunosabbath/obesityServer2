@@ -24,10 +24,13 @@ public class UserDaoImpl {
 		
 		try {
 			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO user (name, email, password) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO user (name, email, password, height, weight, sex) VALUES (?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, user.getName());
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
+			ps.setDouble(4, user.getHeight());
+			ps.setDouble(5, user.getWeight());
+			ps.setString(6, String.valueOf(user.getSex()));
 			ps.executeUpdate();
 			
 			ResultSet rs = ps.getGeneratedKeys();
@@ -96,7 +99,22 @@ public class UserDaoImpl {
 		
 		return answer;
 	}
-
+	
+	public void updateWeight(User user, double newWeight){
+		
+		try {
+			
+			PreparedStatement ps = connection.prepareStatement("UPDATE user SET weight = ? WHERE id = ?");
+			ps.setDouble(1, newWeight);
+			ps.setInt(2, user.getId());
+			ps.executeUpdate();
+			
+				
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public User getById(Integer userId) {
 		
 		PreparedStatement ps = null;

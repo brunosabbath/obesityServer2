@@ -43,7 +43,7 @@ public class Builder {
 		User user = new User();
 		
 		try {
-			user.setId(rs.getInt(1)).setName(rs.getString(2));
+			user.setId(rs.getInt(1)).setName(rs.getString(2)).setHeight(rs.getDouble(5)).setWeight(rs.getDouble(6)).setSex(rs.getString(7).charAt(0));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

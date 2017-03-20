@@ -11,16 +11,12 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
-
 	private String email;
-
-	private String height;
-
 	private String name;
-
 	private String password;
-
 	private double weight;
+	private double height;
+	private char sex;
 
 	//bi-directional many-to-one association to Meal
 	private List<Meal> meals;
@@ -46,12 +42,21 @@ public class User implements Serializable {
 		return this;
 	}
 
-	public String getHeight() {
+	public double getHeight() {
 		return this.height;
 	}
 
-	public User setHeight(String height) {
+	public User setHeight(double height) {
 		this.height = height;
+		return this;
+	}
+	
+	public double getSex() {
+		return this.height;
+	}
+
+	public User setSex(char sex) {
+		this.sex = sex;
 		return this;
 	}
 

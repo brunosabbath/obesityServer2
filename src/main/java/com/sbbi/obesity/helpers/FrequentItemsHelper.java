@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.FrequentItems;
+import com.sbbi.obesity.model.FrequentItemsComparator;
 import com.sbbi.obesity.model.Meal;
 
 public class FrequentItemsHelper {
@@ -20,6 +21,10 @@ public class FrequentItemsHelper {
 		for(Meal meal : myMealList){
 			for(Food food : meal.getFoods()){
 				
+				if("Carrot".equals(food.getName())){
+					System.out.println("carrot");
+				}
+				
 				if(hasName(frequentItems, food.getName())){
 					List<Food> listFood = frequentItems.get(food.getName());
 					listFood.add(food);
@@ -27,31 +32,41 @@ public class FrequentItemsHelper {
 				}
 				else{
 					List<Food> listFood = new ArrayList<Food>();
+					listFood.add(food);
 					frequentItems.put(food.getName(), listFood);
 				}
 				
 			}
 		}
 		
-		List<FrequentItems> listFrequency = listFrequency(frequentItems);
+		List<FrequentItems> listFrequency = getCaloriesFromEachFood(frequentItems);
 		
-		Collections.sort(listFrequency);
+		Collections.sort(listFrequency, new FrequentItemsComparator());//by calories and frequency
+		//Collections.sort(listFrequency);//only by one field
+		print(listFrequency);
 		
 		return listFrequency;
 		
 	}
 
-	private static List<FrequentItems> listFrequency(HashMap<String, List<Food>> frequentItems) {
+	private static void print(List<FrequentItems> listFrequency) {
+		for(FrequentItems f : listFrequency){
+			System.out.println("Food: " + f.getName() + "\tFrequency: " + f.getFrequency() + "\tCalories: " + f.getCalories());
+		}
+		
+	}
+
+	private static List<FrequentItems> getCaloriesFromEachFood(HashMap<String, List<Food>> frequentItems) {
 		
 		List<FrequentItems> listFrequent = new ArrayList<FrequentItems>();
 		
 		for(String key : frequentItems.keySet()){
 			List<Food> listFood = frequentItems.get(key);
 			double calories = getCalories(listFood);
-			System.out.println("Food: " + key + "\tFrequency: " + listFood.size() + "\tCalories: " + calories);
 			FrequentItems f = new FrequentItems(key, listFood.size(), calories);
 			listFrequent.add(f);
 			
+			//System.out.println("Food: " + key + "\tFrequency: " + listFood.size() + "\tCalories: " + calories);
 		}
 		
 		return listFrequent;
