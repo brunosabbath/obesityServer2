@@ -13,19 +13,10 @@ public class Meal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
-
 	private Date date;
-	
-	//bi-directional many-to-one association to MealFood
 	private List<Food> foods;
-
-	//bi-directional many-to-one association to Photo
 	private List<Photo> photos;
-
-	//bi-directional many-to-one association to User
 	private User user;
-
-	//bi-directional many-to-one association to TypeMeal
 	private TypeMeal typeMeal;
 
 	public Meal() {
@@ -105,5 +96,5 @@ public class Meal implements Serializable {
 		
 		return totalCalories;
 	}
-
+	
 }

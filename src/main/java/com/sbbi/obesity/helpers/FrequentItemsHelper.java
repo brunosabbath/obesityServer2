@@ -20,11 +20,7 @@ public class FrequentItemsHelper {
 		
 		for(Meal meal : myMealList){
 			for(Food food : meal.getFoods()){
-				
-				if("Carrot".equals(food.getName())){
-					System.out.println("carrot");
-				}
-				
+		
 				if(hasName(frequentItems, food.getName())){
 					List<Food> listFood = frequentItems.get(food.getName());
 					listFood.add(food);
@@ -43,7 +39,7 @@ public class FrequentItemsHelper {
 		
 		Collections.sort(listFrequency, new FrequentItemsComparator());//by calories and frequency
 		//Collections.sort(listFrequency);//only by one field
-		print(listFrequency);
+		//print(listFrequency);
 		
 		return listFrequency;
 		
@@ -63,13 +59,46 @@ public class FrequentItemsHelper {
 		for(String key : frequentItems.keySet()){
 			List<Food> listFood = frequentItems.get(key);
 			double calories = getCalories(listFood);
-			FrequentItems f = new FrequentItems(key, listFood.size(), calories);
+			double carbs = getCarbs(listFood);
+			double protein = getProtein(listFood);
+			double sugar = getSugar(listFood);
+			FrequentItems f = new FrequentItems(key, listFood.size(), calories, carbs, protein, sugar);
 			listFrequent.add(f);
 			
 			//System.out.println("Food: " + key + "\tFrequency: " + listFood.size() + "\tCalories: " + calories);
 		}
 		
 		return listFrequent;
+	}
+
+	private static double getSugar(List<Food> listFood) {
+		double sugar = 0;
+		
+		for(Food food : listFood){
+			sugar = sugar + food.getSugar();
+		}
+		
+		return sugar;
+	}
+
+	private static double getProtein(List<Food> listFood) {
+		double protein = 0;
+		
+		for(Food food : listFood){
+			protein = protein + food.getProtein();
+		}
+		
+		return protein;
+	}
+
+	private static double getCarbs(List<Food> listFood) {
+		double carbs = 0;
+		
+		for(Food food : listFood){
+			carbs = carbs + food.getCarbohydrate();
+		}
+		
+		return carbs;
 	}
 
 	private static double getCalories(List<Food> listFood) {

@@ -1,6 +1,8 @@
 package com.sbbi.obesity.test;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 import com.sbbi.obesity.constants.AteMuchOrLess;
 import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.helpers.FrequentItemsHelper;
-import com.sbbi.obesity.insights.Insights;
+import com.sbbi.obesity.insights.InsightsMethod;
 import com.sbbi.obesity.manager.FoodManager;
 import com.sbbi.obesity.manager.MealManager;
 import com.sbbi.obesity.model.Food;
@@ -22,8 +24,6 @@ public class TestSimilarFood {
 	public static List<Meal> myMealList = new ArrayList<Meal>();
 	
 	public static void main(String[] args) {
-
-		int userId = 5;
 		
 		buildMealList();
 		
@@ -133,11 +133,11 @@ public class TestSimilarFood {
 			
 			System.out.println("Total calories in: " + totalCaloriesIn);
 			
-			AteMuchOrLess ateMuchOrLess = Insights.ateMuchOrLess(totalCaloriesIn, totalCaloriesOut);
+			AteMuchOrLess ateMuchOrLess = InsightsMethod.ateMuchOrLess(totalCaloriesIn, totalCaloriesOut);
 			
 			if("TOO_MUCH".equals(ateMuchOrLess.name())){
-				Insights.day(listFrequentItems);
-				//Insights.week();
+				//Insights.day(myMealList, totalCaloriesOut);
+				InsightsMethod.week(myMealList, totalCaloriesOut);
 			}
 			
 		} catch (SQLException e) {

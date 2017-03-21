@@ -5,13 +5,49 @@ public class FrequentItems implements Comparable<FrequentItems>{
 	private int frequency;
 	private String name;
 	private double calories;
+	private double carbs;
+	private double sugars;
+	private double protein;
 	
-	public FrequentItems(String name, int frequency, double calories) {
+	public FrequentItems(String name, int frequency, double calories, double carbs, double protein, double sugar) {
 		this.name = name;
 		this.frequency = frequency;
 		this.calories = calories;
+		this.carbs = carbs;
+		this.sugars = sugar;
+		this.protein = protein;
 	}
-	
+
+	public FrequentItems() {
+		this.carbs = 0;
+		this.sugars = 0;
+		this.protein = 0;
+	}
+
+	public double getCarbs() {
+		return carbs;
+	}
+
+	public void setCarbs(double carbs) {
+		this.carbs = carbs;
+	}
+
+	public double getSugars() {
+		return sugars;
+	}
+
+	public void setSugars(double sugars) {
+		this.sugars = sugars;
+	}
+
+	public double getProtein() {
+		return protein;
+	}
+
+	public void setProtein(double protein) {
+		this.protein = protein;
+	}
+
 	public double getCalories() {
 		return calories;
 	}
@@ -47,7 +83,7 @@ public class FrequentItems implements Comparable<FrequentItems>{
 	
 	@Override
 	public String toString() {
-		return "Food: " + name + "\tCalories: " + calories + "\tFrequency: " + frequency;
+		return "Food: " + name + "\tCalories: " + calories + "\tcarbs: " + carbs + "\tsugars: " + sugars + "\tprotein: " + protein + "\tFrequency: " + frequency;
 	}
 	
 }
