@@ -116,16 +116,16 @@ public class TestSimilarFood {
 			//1 day active man
 			totalCaloriesOut = 2000;
 			
-			myMealList.add(snack1);
+			//myMealList.add(snack1);
 			
-			/*myMealList.add(breakfastOk);
+			myMealList.add(breakfastOk);
 			myMealList.add(lunchOk);
 			myMealList.add(dinnerOk);
-			*/
 			
-			myMealList.add(breakfastBad);
+			
+			/*myMealList.add(breakfastBad);
 			myMealList.add(lunchBad);
-			myMealList.add(dinnerBad);
+			myMealList.add(dinnerBad);*/
 			
 			List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
 			

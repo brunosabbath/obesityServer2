@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.sbbi.obesity.builder.Builder;
 import com.sbbi.obesity.model.Food;
+import com.sbbi.obesity.model.FrequentItems;
 
 public class FoodDaoImpl {
 
@@ -83,6 +84,43 @@ public class FoodDaoImpl {
 		
 		try {
 			ps = conn.prepareStatement("SELECT * FROM food");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				Food food = new Food();
+				food = Builder.buildFood(rs);
+				list.add(food);
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public List<Food> listFoodBut(List<FrequentItems> unhealthyFood) {
+		
+		StringBuilder builder = new StringBuilder();
+		
+		for(int i = 0; i < unhealthyFood.size(); i++){
+			
+			if(i == unhealthyFood.size() - 1){
+				builder.append("name <> '" + unhealthyFood.get(i).getName() + "'");
+			}
+			else{
+				builder.append("name <> '" + unhealthyFood.get(i).getName() + "' AND ");
+			}
+		}
+			
+		PreparedStatement ps = null;
+		
+		List<Food> list = new ArrayList<Food>();
+		
+		try {
+			String query = "SELECT * FROM food WHERE " + builder.toString();
+			ps = conn.prepareStatement(query);
 			
 			ResultSet rs = ps.executeQuery();
 			

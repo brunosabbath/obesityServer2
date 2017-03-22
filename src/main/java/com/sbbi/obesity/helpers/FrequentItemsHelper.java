@@ -62,13 +62,24 @@ public class FrequentItemsHelper {
 			double carbs = getCarbs(listFood);
 			double protein = getProtein(listFood);
 			double sugar = getSugar(listFood);
-			FrequentItems f = new FrequentItems(key, listFood.size(), calories, carbs, protein, sugar);
+			double grams = getQuantityGrams(listFood);
+			FrequentItems f = new FrequentItems(key, listFood.size(), calories, carbs, protein, sugar, grams);
 			listFrequent.add(f);
 			
 			//System.out.println("Food: " + key + "\tFrequency: " + listFood.size() + "\tCalories: " + calories);
 		}
 		
 		return listFrequent;
+	}
+
+	private static double getQuantityGrams(List<Food> listFood) {
+		double grams = 0;
+		
+		for(Food food : listFood){
+			grams = grams + food.getGrams();
+		}
+		
+		return grams;
 	}
 
 	private static double getSugar(List<Food> listFood) {

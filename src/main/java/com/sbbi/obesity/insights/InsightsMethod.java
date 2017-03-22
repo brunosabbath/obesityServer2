@@ -17,7 +17,7 @@ public class InsightsMethod {
 	//The Ideal Daily Caloric Deficit: 20% below maintenance level per day. 20% of 2500
 	//http://www.acaloriecounter.com/diet/how-many-calories-should-i-eat-per-day-to-lose-weight/
 
-	private static final double BAD_PERCENTAGE = 30;
+	private static final double THRESHOLD_BAD_FOOD = 35;
 	private static final double DEFICIT_FACTOR = 0.2;
 	//for 2 days
 	private static final double CALORIE_MAINTENANCE_LEVEL = 5600;
@@ -61,7 +61,6 @@ public class InsightsMethod {
 
 	private static boolean tooMuch(double energyBalance) {
 		
-		
 		if(energyBalance > 0)
 			return true;
 		
@@ -82,7 +81,7 @@ public class InsightsMethod {
 		
 		Insight insight = getInsights(listFrequentItems, totalCaloriesIn, totalCaloriesOut);
 		
-		new Recommendation().getRecommendation(insight, listFrequentItems, myMealList);
+		new Recommendation().getRecommendation(insight, listFrequentItems, myMealList, totalCaloriesIn, totalCaloriesOut);
 	}
 	
 	private static Insight getInsights(List<FrequentItems> listFrequentItems, double totalCaloriesIn, double totalCaloriesOut) {
@@ -148,8 +147,8 @@ public class InsightsMethod {
 		    nf.setMinimumFractionDigits(7);
 		    String pct = nf.format(percentage);
 			
-		    if(percentage > BAD_PERCENTAGE)
-		    	listFrequentItems.add(f);
+		    if(percentage > THRESHOLD_BAD_FOOD)
+		    	listUnhealthyFood.add(f);
 		    
 			System.out.println(f + "\tPercentage: " + pct);
 		}
