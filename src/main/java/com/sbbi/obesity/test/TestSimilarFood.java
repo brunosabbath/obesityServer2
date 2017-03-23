@@ -148,7 +148,7 @@ public class TestSimilarFood {
 
 	private static Food cloneWithNewWeight(Food food, int weight) {
 
-		Food newFood = food;
+		Food newFood = new Food(food);
 		
 		newFood.changeAmountGrams(weight);
 		

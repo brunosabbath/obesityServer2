@@ -42,6 +42,23 @@ public class Food implements Serializable{
 		this.name = name;
 	}
 
+	public Food(Food food) {
+		this.carbohydrate = food.getCarbohydrate();
+		this.cholesterol = food.getCholesterol();
+		this.energy = food.getEnergy();
+		this.fattyAcidsMonounsaturated = food.getFattyAcidsMonounsaturated();
+		this.fattyAcidsPolyunsaturated = food.getFattyAcidsPolyunsaturated();
+		this.fattyAcidsSaturated = food.getFattyAcidsSaturated(); 
+		this.fattyAcidTrans = food.getFattyAcidTrans();
+		this.fiber = food.getFiber();
+		this.lipid = food.getLipid();
+		this.protein = food.getProtein();
+		this.sugar = food.getSugar();
+		this.name = food.getName();
+		this.grams = food.getGrams();
+
+	}
+
 	public int getId() {
 		return this.id;
 	}
