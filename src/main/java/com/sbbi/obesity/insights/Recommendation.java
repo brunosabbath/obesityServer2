@@ -61,11 +61,22 @@ public class Recommendation {
 		
 	}
 
-	public static List<String> adjunstAmountUnhealthyFoodToBecomeOk(List<Food> listUnhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
+	public static String adjunstAmountUnhealthyFoodToBecomeOk(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
+		
+		StringBuilder string = new StringBuilder();
 		
 		double differenceInAndOut = totalCaloriesIn - totalCaloriesOut;
 		
-		return null;
+		for(FrequentItems frequentItems : unhealthyFood){
+			double caloriesWithouthFood = totalCaloriesIn - frequentItems.getCalories();
+			double difference = totalCaloriesIn - caloriesWithouthFood;
+			double canEat = totalCaloriesOut - caloriesWithouthFood;
+			double pct = canEat * 100 / totalCaloriesIn;
+			string.append("You still can eat " + frequentItems.getName() + " if you reduce it to " + pct);
+			//double pct = food.getEnergy() * 100 / totalCaloriesIn;
+		}
+		
+		return string.toString();
 	}
 
 	//Filter food. If food in same quantity as unhealthy food but with less calories than unhealthy food, get it 
