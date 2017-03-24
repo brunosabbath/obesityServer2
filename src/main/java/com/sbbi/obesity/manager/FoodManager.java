@@ -7,16 +7,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.sbbi.obesity.constants.AteMuchOrLess;
 import com.sbbi.obesity.dao.FoodDaoImpl;
+import com.sbbi.obesity.helpers.FrequentItemsHelper;
+import com.sbbi.obesity.insights.InsightsMethod;
+import com.sbbi.obesity.insights.Recommendation;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.FrequentItems;
+import com.sbbi.obesity.model.Meal;
 
 public class FoodManager {
 
 	private Connection connection;
+	private List<FrequentItems> listFrequentFoodItem;
 	
 	public FoodManager(Connection connection){
 		this.connection = connection;
+		this.listFrequentFoodItem = new ArrayList<FrequentItems>();
 	}
 	
 	public Food getFood(String name, double amount){
@@ -24,47 +31,43 @@ public class FoodManager {
 		FoodDaoImpl dao = new FoodDaoImpl(connection);
 		
 		Food food = dao.getByName(name);
-		
-		//System.out.println(food);
 		food.changeAmountGrams(amount);
-		//System.out.println(food);
 		
 		return food;
-		
 	}
 	
 	public void listFoodBut(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
 		
 		FoodDaoImpl dao = new FoodDaoImpl(connection);
-		List<Food> listFood = dao.listFoodBut(unhealthyFood);
 		
-		Set<String> goodFood = getOnlyGoodFood(unhealthyFood, listFood, totalCaloriesIn, totalCaloriesOut);
-		
-	}
-	
-	//Filter food. If food in same quantity as unhealthy food but with less calories than unhealthy food, get it 
-	private Set<String> getOnlyGoodFood(List<FrequentItems> unhealthyFood, List<Food> listFood, double totalCaloriesIn, double totalCaloriesOut) {
-		
-		Set<String> setBestFood = new HashSet<String>();
-		
-		for(FrequentItems badFood : unhealthyFood){
-			
-			double caloriesIn = totalCaloriesIn - badFood.getCalories();
-			
-			for(Food goodFood : listFood){
-				
-				goodFood.changeAmountGrams(badFood.getGrams());
-				
-				double deficit = (caloriesIn + goodFood.getEnergy()) - totalCaloriesOut; 
-				
-				if(goodFood.getEnergy() < badFood.getCalories() && deficit <= 0){
-					setBestFood.add(goodFood.getName());
-				}
-				
-			}
+		if(!hasUnhealthyFood(unhealthyFood)){
+			System.out.println("no unhealthy food");
+			unhealthyFood = getTopCandidatesForUnhealthyFoodFromFrequentItems(getFrequentItems());
 		}
 		
-		return setBestFood;
+		List<Food> listUnhealthyFood = dao.listFoodBut(unhealthyFood);
+		
+		Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listUnhealthyFood, totalCaloriesIn, totalCaloriesOut);
+		System.out.println(goodFood);
+		
+		List<String> recommendationInsight = Recommendation.adjunstAmountUnhealthyFoodToBecomeOk(listUnhealthyFood, totalCaloriesIn, totalCaloriesOut);
+		
+	}
+
+	private List<FrequentItems> getTopCandidatesForUnhealthyFoodFromFrequentItems(List<FrequentItems> frequentItems) {
+		
+		List<FrequentItems> list = new ArrayList<FrequentItems>();
+		list.add(frequentItems.get(0));
+		//list.add(frequentItems.get(1));
+		
+		return list;
+	}
+
+	private boolean hasUnhealthyFood(List<FrequentItems> unhealthyFood) {
+		if(unhealthyFood.isEmpty())
+			return false;
+		
+		return true;
 	}
 
 	public void close(){
@@ -75,4 +78,28 @@ public class FoodManager {
 		}
 	}
 	
+	public List<FrequentItems> getFrequentItems(){
+		return listFrequentFoodItem;
+	}
+	
+	public void setFrequentItems(List<FrequentItems> frequentFood) {
+		this.listFrequentFoodItem = frequentFood;;
+	}
+
+	public void getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut) {
+		
+		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
+		
+		double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);
+		
+		System.out.println("Total calories in: " + totalCaloriesIn);
+		
+		AteMuchOrLess ateMuchOrLess = InsightsMethod.ateMuchOrLess(totalCaloriesIn, totalCaloriesOut);
+		
+		if("TOO_MUCH".equals(ateMuchOrLess.name())){
+			//Insights.day(myMealList, totalCaloriesOut);
+			InsightsMethod.week(myMealList, totalCaloriesOut);
+		}
+		
+	}
 }

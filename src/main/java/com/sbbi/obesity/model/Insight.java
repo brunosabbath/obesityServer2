@@ -15,6 +15,7 @@ public class Insight {
 	private String highestSugarName;
 	private String highestCaloriesName;
 	private List<FrequentItems> unhealthyFood;
+	private List<FrequentItems> listFrequentItems;
 	
 	public void setUnhealthyFood(List<FrequentItems> unhealthyFood) {
 		this.unhealthyFood = unhealthyFood;
@@ -111,6 +112,14 @@ public class Insight {
 
 	public void addUnhealthyFood(FrequentItems f) {
 		this.unhealthyFood.add(f);
+	}
+	
+	public List<FrequentItems> getFrequentFood(){
+		return listFrequentItems;
+	}
+	
+	public void setFrequentFood(List<FrequentItems> listFrequentItems) {
+		this.listFrequentItems = listFrequentItems;
 	}
 	
 }

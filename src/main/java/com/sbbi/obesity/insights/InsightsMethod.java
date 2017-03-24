@@ -130,8 +130,9 @@ public class InsightsMethod {
 				.setHighestCarbsName(highestCarbs.getName()).setHighestSugarName(highestSugars.getName()).setHighestCaloriesName(listFrequentItems.get(0).getName());
 				
 		
-		List<FrequentItems> highCalorieFood = getHighCalorieFood(listFrequentItems, totalCaloriesIn);
+		List<FrequentItems> highCalorieFood = getHighCalorieFood(listFrequentItems, totalCaloriesIn);//prints
 		insight.setUnhealthyFood(highCalorieFood);
+		insight.setFrequentFood(listFrequentItems);
 		
 		return insight;
 	}
@@ -140,17 +141,17 @@ public class InsightsMethod {
 		
 		List<FrequentItems> listUnhealthyFood = new ArrayList<FrequentItems>();
 		
-		for(FrequentItems f : listFrequentItems){
-			double percentage = (f.getCalories() * 100) / totalCaloriesIn;
+		for(FrequentItems freqFood : listFrequentItems){
+			double percentage = (freqFood.getCalories() * 100) / totalCaloriesIn;
 			
 			NumberFormat nf = NumberFormat.getInstance();
 		    nf.setMinimumFractionDigits(7);
 		    String pct = nf.format(percentage);
 			
 		    if(percentage > THRESHOLD_BAD_FOOD)
-		    	listUnhealthyFood.add(f);
+		    	listUnhealthyFood.add(freqFood);
 		    
-			System.out.println(f + "\tPercentage: " + pct);
+			System.out.println(freqFood + "\tPercentage: " + pct);
 		}
 		
 		return listUnhealthyFood;

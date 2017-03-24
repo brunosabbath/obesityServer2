@@ -26,26 +26,6 @@ public class TestSimilarFood {
 	public static void main(String[] args) {
 		
 		buildMealList();
-		
-		/*try {
-			
-			MealManager mealManager = new MealManager(ConnectionFactory.getConnection());
-			
-			List<MealPojo> mealList = mealManager.list(userId);
-			
-			for(MealPojo meal : mealList){
-				if(hasFood(meal.getListFood().size())){
-					System.out.println(meal.getType());
-					printFoodMeal(meal.getListFood());
-					System.out.println();
-				}
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
-		
 	}
 
 	private static void buildMealList() {
@@ -114,12 +94,14 @@ public class TestSimilarFood {
 			//2days moderately active
 			double totalCaloriesOut = 5000;
 			//1 day active man
-			totalCaloriesOut = 2000;
+			totalCaloriesOut = 2600;
 			
 			//myMealList.add(snack1);
 			
 			myMealList.add(breakfastOk);
 			myMealList.add(lunchOk);
+			myMealList.add(dinnerOk);
+			myMealList.add(dinnerOk);
 			myMealList.add(dinnerOk);
 			
 			
@@ -127,47 +109,17 @@ public class TestSimilarFood {
 			myMealList.add(lunchBad);
 			myMealList.add(dinnerBad);*/
 			
-			List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
-			
-			double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);
-			
-			System.out.println("Total calories in: " + totalCaloriesIn);
-			
-			AteMuchOrLess ateMuchOrLess = InsightsMethod.ateMuchOrLess(totalCaloriesIn, totalCaloriesOut);
-			
-			if("TOO_MUCH".equals(ateMuchOrLess.name())){
-				//Insights.day(myMealList, totalCaloriesOut);
-				InsightsMethod.week(myMealList, totalCaloriesOut);
-			}
+			foodManager.getInsightsAndRecommendation(myMealList, totalCaloriesOut);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	private static Food cloneWithNewWeight(Food food, int weight) {
-
 		Food newFood = new Food(food);
-		
 		newFood.changeAmountGrams(weight);
-		
 		return newFood;
 	}
 
-	private static void printFoodMeal(List<FoodPojo> listFood) {
-		for(FoodPojo food : listFood)
-			System.out.println(food);
-		
-	}
-
-	private static boolean hasFood(int size) {
-		boolean hasFood = false;
-		
-		if(size > 0)
-			hasFood = true;
-			
-		return hasFood;
-	}
-	
 }

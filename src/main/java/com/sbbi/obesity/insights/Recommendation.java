@@ -2,7 +2,9 @@ package com.sbbi.obesity.insights;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.sbbi.obesity.dao.FoodDaoImpl;
 import com.sbbi.obesity.factory.ConnectionFactory;
@@ -30,19 +32,17 @@ public class Recommendation {
 		
 	}
 
-	private List<Food> getRecommendedFood(List<Food> food, List<Meal> myMealList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/**
+	 * algo que va substituir essa ma comida na refeicao: tem q ser uma comida q nao esta presente na refeicao e que va substituir a ma comida
+	 * tenho q pegar a porcao de cada comida no prato
+	 * trneho q pegar comidas que vao deixar minha caloriesIn-caloriesOut = 0 c/ o mesmo amout of food do que a comida ruim
+	 */
 	private List<Food> getCandidates(Insight insight, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
-		//algo que va substituir essa ma comida na refeicao: tem q ser uma comida q nao esta presente na refeicao e que va substituir a ma comida 
-		//tenho q pegar a porcao de cada comida no prato
-		//trneho q pegar comidas que vao deixar minha caloriesIn-caloriesOut = 0 c/ o mesmo amout of food do que a comida ruim
 		List<FrequentItems> unhealthyFood = insight.getUnhealthyFood();
 		
 		try {
 			FoodManager manager = new FoodManager(ConnectionFactory.getConnection());
+			manager.setFrequentItems(insight.getFrequentFood());
 			manager.listFoodBut(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
 			
 		} catch (SQLException e) {
@@ -59,6 +59,37 @@ public class Recommendation {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public static List<String> adjunstAmountUnhealthyFoodToBecomeOk(List<Food> listUnhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
+		
+		double differenceInAndOut = totalCaloriesIn - totalCaloriesOut;
+		
+		return null;
+	}
+
+	//Filter food. If food in same quantity as unhealthy food but with less calories than unhealthy food, get it 
+	public static Set<String> getOnlyGoodFood(List<FrequentItems> unhealthyFood, List<Food> listFood, double totalCaloriesIn, double totalCaloriesOut) {
+		
+		Set<String> setBestFood = new HashSet<String>();
+		
+		for(FrequentItems badFood : unhealthyFood){
+			
+			double caloriesInWithoutBadFood = totalCaloriesIn - badFood.getCalories();
+			
+			for(Food goodFood : listFood){
+				
+				goodFood.changeAmountGrams(badFood.getGrams());
+				
+				double deficit = (caloriesInWithoutBadFood + goodFood.getEnergy()) - totalCaloriesOut; 
+				
+				if(goodFood.getEnergy() < badFood.getCalories() && deficit <= 0){
+					setBestFood.add(goodFood.getName());
+				}
+			}
+		}
+		
+		return setBestFood;
 	}
 
 }
