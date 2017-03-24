@@ -48,17 +48,28 @@ public class FoodManager {
 		List<Food> listHealthyFood = dao.listFoodBut(unhealthyFood);
 		
 		Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listHealthyFood, totalCaloriesIn, totalCaloriesOut);
-		System.out.println(goodFood);
+		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFood);
 		
 		String recommendationInsight = Recommendation.adjunstAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
+		System.out.println(recommendationInsight);
 		
+	}
+
+	private String printBadFood(List<FrequentItems> unhealthyFood) {
+		StringBuilder string = new StringBuilder();
+		
+		for(FrequentItems items : unhealthyFood){
+			string.append(items.getName() + " ");
+		}
+		
+		return string.toString();
 	}
 
 	private List<FrequentItems> getTopCandidatesForUnhealthyFoodFromFrequentItems(List<FrequentItems> frequentItems) {
 		
 		List<FrequentItems> list = new ArrayList<FrequentItems>();
 		list.add(frequentItems.get(0));
-		//list.add(frequentItems.get(1));
+		list.add(frequentItems.get(1));
 		
 		return list;
 	}

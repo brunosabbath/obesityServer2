@@ -72,7 +72,7 @@ public class Recommendation {
 			double difference = totalCaloriesIn - caloriesWithouthFood;
 			double canEat = totalCaloriesOut - caloriesWithouthFood;
 			double pct = canEat * 100 / totalCaloriesIn;
-			string.append("You still can eat " + frequentItems.getName() + " if you reduce it to " + pct);
+			string.append("You still can eat " + frequentItems.getName() + " if you reduce it to " + pct + "%.\n");
 			//double pct = food.getEnergy() * 100 / totalCaloriesIn;
 		}
 		
