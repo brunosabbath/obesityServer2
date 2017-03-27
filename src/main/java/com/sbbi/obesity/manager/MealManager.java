@@ -2,12 +2,15 @@ package com.sbbi.obesity.manager;
 import java.sql.Connection;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
 import com.sbbi.obesity.dao.MealDaoImpl;
 import com.sbbi.obesity.dao.MealFoodDaoImpl;
+import com.sbbi.obesity.helpers.DateHelper;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.Meal;
 import com.sbbi.obesity.model.SendMeal;
@@ -119,6 +122,29 @@ public class MealManager {
 		List<MealPojo> mealList = dao.list(userId);
 		return mealList;
 		
+	}
+
+	public String insightSkippedMeal(int userId) {
+		
+		int todaysMonth = DateHelper.getCurrentMonth(); 
+		int todaysDay = DateHelper.getTodaysDay();
+		int year = DateHelper.getYear();
+		
+		Date startDay = DateHelper.getStartDay();
+		Date endDay = DateHelper.getEndDay();
+		
+		new MealDaoImpl(connection).listTodaysMeals(userId, DateHelper.dateToSql(startDay), DateHelper.dateToSql(endDay));
+		
+		close();
+		return null;
+	}
+	
+	public void close(){
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.sbbi.obesity.constants.AteMuchOrLess;
 import com.sbbi.obesity.dao.FoodDaoImpl;
+import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.helpers.FrequentItemsHelper;
 import com.sbbi.obesity.insights.InsightsMethod;
 import com.sbbi.obesity.insights.Recommendation;
@@ -81,23 +82,16 @@ public class FoodManager {
 		return true;
 	}
 
-	public void close(){
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public List<FrequentItems> getFrequentItems(){
 		return listFrequentFoodItem;
 	}
 	
 	public void setFrequentItems(List<FrequentItems> frequentFood) {
-		this.listFrequentFoodItem = frequentFood;;
+		this.listFrequentFoodItem = frequentFood;
 	}
 
-	public void getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut, boolean  eatingOutside) {
+	public void getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut, boolean eatingOutside) {
 		
 		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
 		
@@ -112,5 +106,18 @@ public class FoodManager {
 			InsightsMethod.week(myMealList, totalCaloriesOut);
 		}
 		
+		if(eatingOutside){
+			//TODO eating outside
+			//InsightsMethod.eatingOutside()
+		}
+		
+	}
+	
+	public void close(){
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -50,5 +50,19 @@ public class Builder {
 		
 		return user;
 	}
+
+	public static Food buildFood(double quantityInGrams, String foodName, double energy, double protein, double lipid,
+			double carbohydrate, double fiber, double sugar, double fattyAcidsSaturated,
+			double fattyAcidsMonounsaturated, double fattyAcidsPolyunsaturated, double fattyAcidTrans,
+			double cholesterol) {
+		
+		Food food = new Food();
+		food.setName(foodName).setEnergy(energy).setProtein(protein).setLipid(lipid).setCarbohydrate(carbohydrate).setFiber(fiber).setSugar(sugar).setFattyAcidsSaturated(fattyAcidsSaturated)
+		.setFattyAcidsMonounsaturated(fattyAcidsMonounsaturated).setFattyAcidsPolyunsaturated(fattyAcidsPolyunsaturated).setFattyAcidTrans(fattyAcidTrans);
+		
+		food.changeAmountGrams(quantityInGrams);
+		
+		return food;
+	}
 	
 }

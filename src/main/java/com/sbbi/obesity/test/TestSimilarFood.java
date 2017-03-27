@@ -113,6 +113,11 @@ public class TestSimilarFood {
 			
 			foodManager.getInsightsAndRecommendation(myMealList, totalCaloriesOut, eatingOutside);
 			
+			int userId = 5;
+			MealManager mealManager = new MealManager(ConnectionFactory.getConnection());
+			mealManager.insightSkippedMeal(userId);
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
