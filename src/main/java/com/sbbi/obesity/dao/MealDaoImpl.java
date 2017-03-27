@@ -30,10 +30,17 @@ public class MealDaoImpl {
 		
 		try {
 			
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO meal (user_id, type_meal, date) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			int eatingOutside = 0;
+			
+			if(meal.isEatingOutside()){
+				eatingOutside = 1;
+			}
+			
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO meal (user_id, type_meal, date, eatingOutside) VALUES (?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, meal.getUser().getId());
 			ps.setInt(2, meal.getTypeMeal().getId());
 			ps.setDate(3, DateHelper.dateToSql(meal.getDate()));
+			ps.setInt(4, eatingOutside);
 			ps.executeUpdate();
 			
 			ResultSet rs = ps.getGeneratedKeys();
@@ -87,17 +94,24 @@ public class MealDaoImpl {
 		List<MealPojo> list = new ArrayList<MealPojo>();
 		
 		try {
-			ps = connection.prepareStatement("SELECT m.id, m.date, tm.type FROM meal AS m INNER JOIN typeMeal AS tm ON tm.id = m.type_meal WHERE m.user_id = ?");
+			ps = connection.prepareStatement("SELECT m.id, m.date, tm.type, m.eatingOutside FROM meal AS m INNER JOIN typeMeal AS tm ON tm.id = m.type_meal WHERE m.user_id = ?");
 			ps.setInt(1,userId);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){
 				
+				boolean eatingOutside = false;
+				
+				if(rs.getInt(4) == 1)
+					eatingOutside = true;
+				
 				String type = rs.getString(3);
 				int mealId = rs.getInt(1);
+				
 				MealPojo mealPojo = new MealPojo();
 				mealPojo.setType(type);
+				mealPojo.setEatingOutside(eatingOutside);
 				
 				PreparedStatement psFood = connection.prepareStatement("SELECT mf.quantity, f.name, f.energy, f.protein, f.lipid, f.carbohydrate, f.fiber, f.sugar, f.cholesterol " + 
 				"FROM mealFood as mf INNER JOIN food AS f on f.id = mf.foodId WHERE mealId = ?");

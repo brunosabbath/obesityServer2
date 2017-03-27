@@ -97,7 +97,7 @@ public class FoodManager {
 		this.listFrequentFoodItem = frequentFood;;
 	}
 
-	public void getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut) {
+	public void getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut, boolean  eatingOutside) {
 		
 		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
 		

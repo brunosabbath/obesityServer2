@@ -109,7 +109,9 @@ public class TestSimilarFood {
 			myMealList.add(lunchBad);
 			myMealList.add(dinnerBad);*/
 			
-			foodManager.getInsightsAndRecommendation(myMealList, totalCaloriesOut);
+			boolean eatingOutside = true;
+			
+			foodManager.getInsightsAndRecommendation(myMealList, totalCaloriesOut, eatingOutside);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

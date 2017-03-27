@@ -25,6 +25,7 @@ public class Food implements Serializable{
 	private List<Meal> meals;
 	private double grams;
 	
+	
 	public Food() {
 	}
 

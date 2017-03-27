@@ -18,12 +18,17 @@ public class Meal implements Serializable {
 	private List<Photo> photos;
 	private User user;
 	private TypeMeal typeMeal;
-
+	private boolean eatingOutside;
+	
 	public Meal() {
 		foods = new ArrayList<Food>();
 		photos = new ArrayList<Photo>();
 	}
 
+	public boolean isEatingOutside(){
+		return eatingOutside;
+	}
+	
 	public int getId() {
 		return this.id;
 	}
