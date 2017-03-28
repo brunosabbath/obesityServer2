@@ -44,5 +44,40 @@ public class DateHelper {
 		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 23, 59);
 		return myCalendar.getTime();
 	}
+
+	public static int getHour() {
+		Calendar myCalendar = new GregorianCalendar();
+		return myCalendar.HOUR_OF_DAY;
+	}
+
+	public static java.sql.Timestamp getBreakfastStart() {
+		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 6, 00);
+		return dateToSql(myCalendar.getTime());
+	}
+	
+	public static java.sql.Timestamp getBreakfastEnd() {
+		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 10, 00);
+		return dateToSql(myCalendar.getTime());
+	}
+	
+	public static java.sql.Timestamp getLunchStart() {
+		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 10, 00);
+		return dateToSql(myCalendar.getTime());
+	}
+	
+	public static java.sql.Timestamp getLunchEnd() {
+		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 15, 00);
+		return dateToSql(myCalendar.getTime());
+	}
+
+	public static java.sql.Timestamp getDinnerStart() {
+		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 17, 00);
+		return dateToSql(myCalendar.getTime());
+	}
+	
+	public static java.sql.Timestamp getDinnerEnd() {
+		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 22, 00);
+		return dateToSql(myCalendar.getTime());
+	}
 	
 }

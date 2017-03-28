@@ -11,6 +11,7 @@ import java.util.List;
 import com.sbbi.obesity.dao.MealDaoImpl;
 import com.sbbi.obesity.dao.MealFoodDaoImpl;
 import com.sbbi.obesity.helpers.DateHelper;
+import com.sbbi.obesity.helpers.MealTypeEnum;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.Meal;
 import com.sbbi.obesity.model.SendMeal;
@@ -130,10 +131,23 @@ public class MealManager {
 		int todaysDay = DateHelper.getTodaysDay();
 		int year = DateHelper.getYear();
 		
+		int hours = DateHelper.getHour();
+		
 		Date startDay = DateHelper.getStartDay();
 		Date endDay = DateHelper.getEndDay();
 		
-		new MealDaoImpl(connection).listTodaysMeals(userId, DateHelper.dateToSql(startDay), DateHelper.dateToSql(endDay));
+		//new MealDaoImpl(connection).listTodaysMeals(userId, DateHelper.dateToSql(startDay), DateHelper.dateToSql(endDay));
+		MealDaoImpl dao = new MealDaoImpl(connection);
+		
+		if(hours >= 10 && hours <= 15){
+			boolean areMeal = dao.ateMeal(userId, MealTypeEnum.LUNCH.getValue(), DateHelper.getLunchStart(), DateHelper.getLunchEnd());
+		}
+		else if(hours >= 17 && hours <= 22){
+			boolean areMeal = dao.ateMeal(userId, MealTypeEnum.DINNER.getValue(), DateHelper.getDinnerStart(), DateHelper.getDinnerEnd());
+		}
+		else if(hours <= 10){
+			boolean areMeal = dao.ateMeal(userId, MealTypeEnum.BREAKFAST.getValue(), DateHelper.getBreakfastStart(), DateHelper.getBreakfastEnd());
+		}
 		
 		close();
 		return null;

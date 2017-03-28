@@ -263,6 +263,33 @@ public class MealDaoImpl {
 		
 		return listMeal;
 	}
+
+	public boolean ateMeal(int userId, int value, java.sql.Timestamp start, java.sql.Timestamp end) {
+		
+		boolean hasMeal = false;
+		
+		PreparedStatement ps = null;
+		
+		try {
+			ps = connection.prepareStatement("SELECT * FROM meal WHERE user_id = ? AND date >= ? AND date <= ? AND;");
+			
+			ps.setInt(1, userId);
+			ps.setTimestamp(2, start);
+			ps.setTimestamp(3, end);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next())
+				hasMeal = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return hasMeal;
+	}
+
+	
 	
 	
 }
