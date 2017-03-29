@@ -47,7 +47,8 @@ public class DateHelper {
 
 	public static int getHour() {
 		Calendar myCalendar = new GregorianCalendar();
-		return myCalendar.HOUR_OF_DAY;
+		int i = myCalendar.get(Calendar.HOUR_OF_DAY);
+		return i;
 	}
 
 	public static java.sql.Timestamp getBreakfastStart() {

@@ -271,7 +271,7 @@ public class MealDaoImpl {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = connection.prepareStatement("SELECT * FROM meal WHERE user_id = ? AND date >= ? AND date <= ? AND;");
+			ps = connection.prepareStatement("SELECT * FROM meal WHERE user_id = ? AND date >= ? AND date <= ?");
 			
 			ps.setInt(1, userId);
 			ps.setTimestamp(2, start);

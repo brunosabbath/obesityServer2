@@ -140,13 +140,28 @@ public class MealManager {
 		MealDaoImpl dao = new MealDaoImpl(connection);
 		
 		if(hours >= 10 && hours <= 15){
-			boolean areMeal = dao.ateMeal(userId, MealTypeEnum.LUNCH.getValue(), DateHelper.getLunchStart(), DateHelper.getLunchEnd());
+			boolean ateMeal = dao.ateMeal(userId, MealTypeEnum.LUNCH.getValue(), DateHelper.getLunchStart(), DateHelper.getLunchEnd());
+			
+			if(!ateMeal){
+				System.out.println("You haven't eaten lunch, don't eat too much during dinner");
+			}
+			
 		}
 		else if(hours >= 17 && hours <= 22){
-			boolean areMeal = dao.ateMeal(userId, MealTypeEnum.DINNER.getValue(), DateHelper.getDinnerStart(), DateHelper.getDinnerEnd());
+			boolean ateMeal = dao.ateMeal(userId, MealTypeEnum.DINNER.getValue(), DateHelper.getDinnerStart(), DateHelper.getDinnerEnd());
+			
+			if(!ateMeal){
+				System.out.println("You haven't eaten dinner");
+			}
+			
 		}
 		else if(hours <= 10){
-			boolean areMeal = dao.ateMeal(userId, MealTypeEnum.BREAKFAST.getValue(), DateHelper.getBreakfastStart(), DateHelper.getBreakfastEnd());
+			boolean ateMeal = dao.ateMeal(userId, MealTypeEnum.BREAKFAST.getValue(), DateHelper.getBreakfastStart(), DateHelper.getBreakfastEnd());
+			
+			if(!ateMeal){
+				System.out.println("You haven't eaten breakfast, don't eat too much during lunch");
+			}
+			
 		}
 		
 		close();

@@ -14,6 +14,7 @@ public class TestEnum {
 		
 		Calendar myCalendar = new GregorianCalendar();
 		System.out.println(myCalendar.HOUR_OF_DAY);
-		
+		System.out.println(myCalendar.HOUR);
+		System.out.println(myCalendar.get(Calendar.HOUR_OF_DAY));
 	}
 }
