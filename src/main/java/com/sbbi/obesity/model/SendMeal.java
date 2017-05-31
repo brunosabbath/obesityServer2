@@ -101,5 +101,6 @@ public class SendMeal {
     public void setNutrients3(Food nutrients3) {
         this.nutrients3 = nutrients3;
     }
+
 	
 }

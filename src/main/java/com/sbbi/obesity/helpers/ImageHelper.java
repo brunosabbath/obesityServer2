@@ -32,6 +32,21 @@ public class ImageHelper {
 		}
 	}
 	
-	
-	
+	public static String saveImage(MultipartFile file, String s) {
+		long timeInMillis = System.currentTimeMillis();
+		System.out.println("current time: " + timeInMillis);
+		//String imgPath = ImageHelper.buildImagePath(file, timeInMillis);
+		String imgPath = ImageHelper.buildImagePath(file, s);
+		
+		try {
+			ImageHelper.transferTo(imgPath, file);
+			//return new Response().setData("image uploaded");
+			return imgPath;
+		} catch (Exception e) {
+			//return new Response().setError(e.getMessage());
+			return e.getMessage();
+		}
+		
+	}
+		
 }

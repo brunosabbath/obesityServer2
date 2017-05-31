@@ -1,6 +1,5 @@
 package com.sbbi.obesity.controller;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,20 +15,16 @@ import com.sbbi.obesity.model.User;
 @RequestMapping("/login")
 public class LoginController {
 
-	private final int NOT_FOUND = -1;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public User login(@RequestBody User user) {
 
-		Connection connection = null;
-		int id = NOT_FOUND;
-		
 		try {
-			connection = ConnectionFactory.getConnection();
-			UserManager manager = new UserManager(connection);
+			UserManager manager = new UserManager(ConnectionFactory.getConnection());
 			User loggedInUser = manager.login(user);
 			
 			return loggedInUser;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

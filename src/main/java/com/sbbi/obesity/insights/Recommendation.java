@@ -35,7 +35,7 @@ public class Recommendation {
 	/**
 	 * algo que va substituir essa ma comida na refeicao: tem q ser uma comida q nao esta presente na refeicao e que va substituir a ma comida
 	 * tenho q pegar a porcao de cada comida no prato
-	 * trneho q pegar comidas que vao deixar minha caloriesIn-caloriesOut = 0 c/ o mesmo amout of food do que a comida ruim
+	 * teneho q pegar comidas que vao deixar minha caloriesIn-caloriesOut = 0 c/ o mesmo amout of food do que a comida ruim
 	 */
 	private List<Food> getCandidates(Insight insight, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
 		List<FrequentItems> unhealthyFood = insight.getUnhealthyFood();
@@ -61,12 +61,13 @@ public class Recommendation {
 		
 	}
 
-	public static String adjunstAmountUnhealthyFoodToBecomeOk(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
+	public static String adjustAmountUnhealthyFoodToBecomeOk(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
 		
 		StringBuilder string = new StringBuilder();
 		
 		double differenceInAndOut = totalCaloriesIn - totalCaloriesOut;
 		
+		//bad foods that can be ok if you reduce it
 		for(FrequentItems frequentItems : unhealthyFood){
 			double caloriesWithouthFood = totalCaloriesIn - frequentItems.getCalories();
 			double difference = totalCaloriesIn - caloriesWithouthFood;

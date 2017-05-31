@@ -11,7 +11,7 @@ public class TestREST {
 		//String str = temp.getForObject("http://127.0.0.1:5000/knn", String.class);
 		//System.out.println(str);
 		
-		String path = "/home/bsilva/Desktop/banana2.jpg";
+		String path = "/home/bsilva/Desktop/out3.jpg";
 		
 		String s = temp.postForObject("http://127.0.0.1:5000/classify", path, String.class);
 		String split[] = s.split("\n");

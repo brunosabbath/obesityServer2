@@ -34,14 +34,14 @@ public class TestSimilarFood {
 		try {
 			foodManager = new FoodManager(ConnectionFactory.getConnection());
 			
-			Food apple = foodManager.getFood("Apple", 100);
-			Food banana = foodManager.getFood("Banana", 100);
-			Food chicken = foodManager.getFood("Grilled chicken breast", 100);
-			Food rice = foodManager.getFood("Rice", 100);
-			Food bread = foodManager.getFood("Sandwich bread", 100);
-			Food chips = foodManager.getFood("Chips", 100);
-			Food carrot = foodManager.getFood("Carrot", 100);
-			Food grape = foodManager.getFood("Grape", 100);
+			Food apple = foodManager.getFoodByAmount("Apple", 100);
+			Food banana = foodManager.getFoodByAmount("Banana", 100);
+			Food chicken = foodManager.getFoodByAmount("Grilled chicken breast", 100);
+			Food rice = foodManager.getFoodByAmount("Rice", 100);
+			Food bread = foodManager.getFoodByAmount("Sandwich bread", 100);
+			Food chips = foodManager.getFoodByAmount("Chips", 100);
+			Food carrot = foodManager.getFoodByAmount("Carrot", 100);
+			Food grape = foodManager.getFoodByAmount("Grape", 100);
 			
 			Meal breakfastOk = new Meal();
 			breakfastOk.setDate(new Date(2017, 03, 20));

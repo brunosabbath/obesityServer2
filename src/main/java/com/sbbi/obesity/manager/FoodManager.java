@@ -16,25 +16,50 @@ import com.sbbi.obesity.insights.Recommendation;
 import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.FrequentItems;
 import com.sbbi.obesity.model.Meal;
+import com.sbbi.obesity.response.Response;
 
 public class FoodManager {
 
 	private Connection connection;
 	private List<FrequentItems> listFrequentFoodItem;
+	private static final int NO_ID = 0;
 	
 	public FoodManager(Connection connection){
 		this.connection = connection;
 		this.listFrequentFoodItem = new ArrayList<FrequentItems>();
 	}
 	
-	public Food getFood(String name, double amount){
+	public FoodManager() {}
+
+	public Food getFoodByAmount(String name, double amount){
+		
+		Food food = getFood(name);
+		food.changeAmountGrams(amount);
+		
+		return food;
+	}
+	
+	public List<Food> listFood(){
+		
+		FoodDaoImpl dao = new FoodDaoImpl(connection);
+		List<Food> list = dao.list();
+		
+		return list;
+	}
+	
+	public Food getFood(String name){
 		
 		FoodDaoImpl dao = new FoodDaoImpl(connection);
 		
 		Food food = dao.getByName(name);
-		food.changeAmountGrams(amount);
 		
-		return food;
+		if(foodNotFound(food)){
+			return null;
+		}
+		else{
+			return food;
+		}
+		
 	}
 	
 	public void listFoodBut(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
@@ -51,7 +76,7 @@ public class FoodManager {
 		Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listHealthyFood, totalCaloriesIn, totalCaloriesOut);
 		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFood);
 		
-		String recommendationInsight = Recommendation.adjunstAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
+		String recommendationInsight = Recommendation.adjustAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
 		System.out.println(recommendationInsight);
 		
 	}
@@ -113,11 +138,23 @@ public class FoodManager {
 		
 	}
 	
+	private boolean foodNotFound(Food food) {
+		if(food.getId() == NO_ID){
+			return true;
+		}
+		return false;
+	}
+	
 	public void close(){
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void addConnection(Connection connection) {
+		this.connection = connection;
+		
 	}
 }

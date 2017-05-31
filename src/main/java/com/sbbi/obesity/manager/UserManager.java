@@ -1,6 +1,7 @@
 package com.sbbi.obesity.manager;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import com.sbbi.obesity.dao.UserDaoImpl;
 import com.sbbi.obesity.model.User;
@@ -13,6 +14,8 @@ public class UserManager {
 	public UserManager(Connection connection) {
 		this.connection = connection;
 	}
+
+	public UserManager() {}
 
 	public User login(User user) {
 		
@@ -60,6 +63,18 @@ public class UserManager {
 		User user = dao.getById(userId);
 		
 		return user;
+	}
+
+	public void addConnection(Connection connection) {
+		this.connection = connection;
+	}
+
+	public void close() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	

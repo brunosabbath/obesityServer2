@@ -21,8 +21,7 @@ public class User implements Serializable {
 	//bi-directional many-to-one association to Meal
 	private List<Meal> meals;
 
-	public User() {
-	}
+	public User() {}
 
 	public int getId() {
 		return this.id;

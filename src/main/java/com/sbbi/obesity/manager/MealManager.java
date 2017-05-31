@@ -31,6 +31,8 @@ public class MealManager {
 		createFoodHash();
 	}
 
+	public MealManager() {}
+
 	private void createFoodHash() {
 		
 		hashFood.put("Apple", new Food(1,"Apple"));
@@ -174,6 +176,11 @@ public class MealManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void addConenction(Connection connection) {
+		this.connection = connection;
+		
 	}
 	
 }

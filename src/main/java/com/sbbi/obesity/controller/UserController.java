@@ -1,6 +1,5 @@
 package com.sbbi.obesity.controller;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,63 +8,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sbbi.obesity.dao.FoodDaoImpl;
-import com.sbbi.obesity.dao.UserDaoImpl;
 import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.manager.UserManager;
-import com.sbbi.obesity.model.Food;
 import com.sbbi.obesity.model.User;
-import com.sbbi.obesity.response.Response;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-	private final int NOT_FOUND = -1;
-	
 	@RequestMapping(method = RequestMethod.POST, value="/signup")
 	public User signUp(@RequestBody User user) {
 
-		Connection connection = null;
-		int id = NOT_FOUND;
+		UserManager manager = new UserManager();
 		
 		try {
-			connection = ConnectionFactory.getConnection();
-			UserManager manager = new UserManager(connection);
+			manager.addConnection(ConnectionFactory.getConnection());
 			user = manager.insert(user);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
+		} finally {
+			manager.close();
 		}
 		
 		return user;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Response getById(@PathVariable Integer userId){
+	public User getUserById(@PathVariable Integer userId){
 		
-		UserDaoImpl dao = null;
-		Connection connection;
+		UserManager manager = new UserManager();
+		User user = new User();
+		
 		try {
-			connection = ConnectionFactory.getConnection();
-			UserManager manager = new UserManager(connection);
-			User user = manager.getUserById(userId);
+			manager.addConnection(ConnectionFactory.getConnection());
+			user = manager.getUserById(userId);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+		} finally {
+			manager.close();
 		}
 		
-		return null;
-		
-		/*if(foodNotFound(food)){
-			return new Response().setData("food not found");
-		}
-		else{
-			return new Response().setData(food);
-		}*/
-		
+		return user;
 		
 	}
-	
 	
 }

@@ -120,9 +120,9 @@ public class ClassificationManager {
 			
 			FoodManager foodManager = new FoodManager(createConnection());
 			//go to database and get nutrients for predicted food based on their weights
-			Food food1 = foodManager.getFood(resultArray1[0], weightFood1);
-			Food food2 = foodManager.getFood(resultArray2[0], weightFood2);
-			Food food3 = foodManager.getFood(resultArray3[0], weightFood3);
+			Food food1 = foodManager.getFoodByAmount(resultArray1[0], weightFood1);
+			Food food2 = foodManager.getFoodByAmount(resultArray2[0], weightFood2);
+			Food food3 = foodManager.getFoodByAmount(resultArray3[0], weightFood3);
 			closeConnection();
 			
 			//preparing response
@@ -155,7 +155,5 @@ public class ClassificationManager {
 		}
 		return null;
 	}
-
-	
 	
 }
