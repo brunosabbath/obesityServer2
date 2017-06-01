@@ -19,7 +19,7 @@ public class PicturesController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody ResponseFood upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
-			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3, @RequestBody Integer id) {
+			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3) {
 		
 		//System.out.println(id);
 		
