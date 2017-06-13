@@ -15,7 +15,7 @@ public class Builder {
 			food.setId(rs.getInt(1)).setName(rs.getString(2)).setEnergy(rs.getDouble(3)).setProtein(rs.getDouble(4))
 			.setLipid(rs.getDouble(5)).setCarbohydrate(rs.getDouble(6)).setFiber(rs.getDouble(7)).setSugar(rs.getDouble(8))
 			.setFattyAcidsSaturated(rs.getDouble(9)).setFattyAcidsMonounsaturated(rs.getDouble(10)).setFattyAcidsPolyunsaturated(rs.getDouble(11))
-			.setFattyAcidTrans(rs.getDouble(12)).setCholesterol(rs.getDouble(13));
+			.setCholesterol(rs.getDouble(12)).setCalcium(rs.getDouble(13)).setIron(rs.getDouble(14)).setPotassium(rs.getDouble(15)).setSodium(rs.getDouble(16)).setGrade(rs.getString(17).charAt(0));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

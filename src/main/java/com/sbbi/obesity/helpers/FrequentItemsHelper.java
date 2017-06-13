@@ -12,7 +12,10 @@ import com.sbbi.obesity.model.FrequentItemsComparator;
 import com.sbbi.obesity.model.Meal;
 
 public class FrequentItemsHelper {
-
+	
+	/*
+	 * se comeu a mesma comida mais de uma vez, merge a comida e add calories up
+	 * */
 	//public static List<FrequentItems> listFrequentItems(List<Meal> myMealList) {
 	public static List<FrequentItems> listFrequentItems(List<Meal> myMealList) {
 		
@@ -63,7 +66,7 @@ public class FrequentItemsHelper {
 			double protein = getProtein(listFood);
 			double sugar = getSugar(listFood);
 			double grams = getQuantityGrams(listFood);
-			FrequentItems f = new FrequentItems(key, listFood.size(), calories, carbs, protein, sugar, grams);
+			FrequentItems f = new FrequentItems(key, listFood.size(), calories, carbs, protein, sugar, grams, getGrade(listFood));
 			listFrequent.add(f);
 			
 			//System.out.println("Food: " + key + "\tFrequency: " + listFood.size() + "\tCalories: " + calories);
@@ -71,7 +74,12 @@ public class FrequentItemsHelper {
 		
 		return listFrequent;
 	}
-
+	
+	private static char getGrade(List<Food> listFood) {
+		
+		return listFood.get(0).getGrade();
+	}
+	
 	private static double getQuantityGrams(List<Food> listFood) {
 		double grams = 0;
 		

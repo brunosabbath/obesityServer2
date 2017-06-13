@@ -24,9 +24,58 @@ public class Food implements Serializable{
 	private String name;
 	private List<Meal> meals;
 	private double grams;
+	private char grade;
+	private double calcium;
+	private double iron;
+	private double potassium;
+	private double sodium;
 	
 	
 	public Food() {
+	}
+
+	public double getCalcium() {
+		return calcium;
+	}
+
+	public Food setCalcium(double calcium) {
+		this.calcium = calcium;
+		return this;
+	}
+
+	public double getIron() {
+		return iron;
+	}
+
+	public Food setIron(double iron) {
+		this.iron = iron;
+		return this;
+	}
+
+	public double getPotassium() {
+		return potassium;
+	}
+
+	public Food setPotassium(double potassium) {
+		this.potassium = potassium;
+		return this;
+	}
+
+	public double getSodium() {
+		return sodium;
+	}
+
+	public Food setSodium(double sodium) {
+		this.sodium = sodium;
+		return this;
+	}
+
+	public char getGrade() {
+		return grade;
+	}
+
+	public void setGrade(char grade) {
+		this.grade = grade;
 	}
 
 	public double getGrams() {

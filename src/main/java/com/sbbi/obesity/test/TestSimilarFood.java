@@ -31,78 +31,50 @@ public class TestSimilarFood {
 	private static void buildMealList() {
 		
 		FoodManager foodManager;
+		
 		try {
 			foodManager = new FoodManager(ConnectionFactory.getConnection());
 			
-			Food apple = foodManager.getFoodByAmount("Apple", 100);
-			Food banana = foodManager.getFoodByAmount("Banana", 100);
-			Food chicken = foodManager.getFoodByAmount("Grilled chicken breast", 100);
-			Food rice = foodManager.getFoodByAmount("Rice", 100);
-			Food bread = foodManager.getFoodByAmount("Sandwich bread", 100);
-			Food chips = foodManager.getFoodByAmount("Chips", 100);
-			Food carrot = foodManager.getFoodByAmount("Carrot", 100);
-			Food grape = foodManager.getFoodByAmount("Grape", 100);
+			Food apple = foodManager.getFoodByAmount("Apple", 140);
+			Food banana = foodManager.getFoodByAmount("Banana", 95);
+			Food cookie = foodManager.getFoodByAmount("cookie", 50);
 			
-			Meal breakfastOk = new Meal();
-			breakfastOk.setDate(new Date(2017, 03, 20));
-			breakfastOk.addFood(apple);
-			breakfastOk.addFood(banana);
-			breakfastOk.addFood(apple);
+			Food rice = foodManager.getFoodByAmount("Rice", 200);
+			Food fries = foodManager.getFoodByAmount("french_fries", 100);
+			Food pasta = foodManager.getFoodByAmount("pasta", 400);
 			
-			Meal breakfastBad = new Meal();
-			breakfastOk.setDate(new Date(2017, 03, 21));
-			breakfastBad.addFood(cloneWithNewWeight(bread, 100));
-			breakfastBad.addFood(banana);
-			breakfastBad.addFood(apple);
+			Food rice2 = foodManager.getFoodByAmount("Rice", 240);
+			Food grilled = foodManager.getFoodByAmount("Grilled_chicken_breast", 100);
+			Food fries2 = foodManager.getFoodByAmount("french_fries", 150);
 			
-			Meal lunchOk = new Meal();
-			breakfastOk.setDate(new Date(2017, 03, 20));
-			lunchOk.addFood(cloneWithNewWeight(chips, 160));
-			lunchOk.addFood(cloneWithNewWeight(rice, 150));
-			lunchOk.addFood(cloneWithNewWeight(carrot, 15));
-			lunchOk.addFood(cloneWithNewWeight(chicken, 300));
+			Meal breakfast = new Meal();
+			breakfast.setDate(new Date(2017, 03, 20));
+			breakfast.addFood(apple);
+			breakfast.addFood(banana);
+			breakfast.addFood(cookie);
 			
-			Meal lunchBad = new Meal();
-			breakfastOk.setDate(new Date(2017, 03, 21));
-			lunchBad.addFood(cloneWithNewWeight(chips, 100));
-			lunchBad.addFood(cloneWithNewWeight(rice, 300));
-			lunchBad.addFood(cloneWithNewWeight(carrot, 5));
-			lunchBad.addFood(cloneWithNewWeight(chicken, 100));
-			
-			Meal dinnerOk = new Meal();
-			breakfastOk.setDate(new Date(2017, 03, 20));
-			dinnerOk.addFood(cloneWithNewWeight(rice, 100));
-			dinnerOk.addFood(cloneWithNewWeight(carrot, 10));
-			dinnerOk.addFood(cloneWithNewWeight(chicken, 100));
-			dinnerOk.addFood(cloneWithNewWeight(banana, 150));
-			
-			Meal dinnerBad = new Meal();
-			breakfastOk.setDate(new Date(2017, 03, 21));
-			dinnerBad.addFood(cloneWithNewWeight(rice, 100));
-			dinnerBad.addFood(cloneWithNewWeight(chicken, 150));
-			dinnerBad.addFood(cloneWithNewWeight(bread, 70));
-			dinnerBad.addFood(cloneWithNewWeight(chips, 150));
-			
-			Meal snack1 = new Meal();
-			snack1.addFood(cloneWithNewWeight(apple, 100));
-			snack1.addFood(cloneWithNewWeight(banana, 100));
+			Meal lunch = new Meal();
+			lunch.setDate(new Date(2017, 03, 20));
+			lunch.addFood(rice);
+			lunch.addFood(fries);
+			lunch.addFood(pasta);
 			
 			Meal dinner = new Meal();
-			dinner.addFood(cloneWithNewWeight(rice, 150));
-			dinner.addFood(cloneWithNewWeight(chips, 150));
+			dinner.setDate(new Date(2017, 03, 20));
+			dinner.addFood(rice2);
+			dinner.addFood(grilled);
+			dinner.addFood(fries2);
 			
 			//2days moderately active
 			double totalCaloriesOut = 5000;
 			//1 day active man
-			totalCaloriesOut = 2600;
+			totalCaloriesOut = 1700;
 			
 			//myMealList.add(snack1);
 			
-			myMealList.add(breakfastOk);
-			myMealList.add(lunchOk);
-			myMealList.add(dinnerOk);
-			myMealList.add(dinnerOk);
-			myMealList.add(dinnerOk);
+			myMealList.add(breakfast);
+			myMealList.add(lunch);
+			myMealList.add(dinner);
 			
 			
 			/*myMealList.add(breakfastBad);

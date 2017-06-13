@@ -76,8 +76,8 @@ public class InsightsMethod {
 	}
 	
 	public static void week(List<Meal> myMealList, double totalCaloriesOut) {
-		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
-		double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);
+		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);//frequent items
+		double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);//calories in
 		
 		Insight insight = getInsights(listFrequentItems, totalCaloriesIn, totalCaloriesOut);
 		

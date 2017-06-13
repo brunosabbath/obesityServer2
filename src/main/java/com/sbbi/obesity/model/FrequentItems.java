@@ -10,8 +10,9 @@ public class FrequentItems implements Comparable<FrequentItems>{
 	private double protein;
 	private double grams;
 	private double energy;
+	private char grade;
 	
-	public FrequentItems(String name, int frequency, double calories, double carbs, double protein, double sugar, double grams) {
+	public FrequentItems(String name, int frequency, double calories, double carbs, double protein, double sugar, double grams, char grade) {
 		this.name = name;
 		this.frequency = frequency;
 		this.calories = calories;
@@ -19,6 +20,7 @@ public class FrequentItems implements Comparable<FrequentItems>{
 		this.sugars = sugar;
 		this.protein = protein;
 		this.grams = grams;
+		this.grade = grade;
 	}
 
 	public FrequentItems() {
@@ -28,6 +30,14 @@ public class FrequentItems implements Comparable<FrequentItems>{
 		this.grams = 0;
 	}
 	
+	public char getGrade() {
+		return grade;
+	}
+
+	public void setGrade(char grade) {
+		this.grade = grade;
+	}
+
 	public double getGrams() {
 		return grams;
 	}
