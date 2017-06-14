@@ -81,9 +81,7 @@ public class TestSimilarFood {
 			myMealList.add(lunchBad);
 			myMealList.add(dinnerBad);*/
 			
-			boolean eatingOutside = true;
-			
-			foodManager.getInsightsAndRecommendation(myMealList, totalCaloriesOut, eatingOutside);
+			foodManager.getInsightsAndRecommendation(myMealList, totalCaloriesOut);
 			
 			int userId = 5;
 			MealManager mealManager = new MealManager(ConnectionFactory.getConnection());

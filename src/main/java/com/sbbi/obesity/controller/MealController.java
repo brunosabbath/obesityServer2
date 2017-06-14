@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sbbi.obesity.factory.ConnectionFactory;
+import com.sbbi.obesity.manager.FoodManager;
 import com.sbbi.obesity.manager.MealManager;
 import com.sbbi.obesity.model.SendMeal;
 import com.sbbi.obesity.model.pojo.MealPojo;
+import com.sbbi.obesity.model.recommendation.RecommendationRequest;
 
 
 @RestController
@@ -65,6 +67,17 @@ public class MealController {
 		}
 		
 		return meal;
+	}
+	
+	@RequestMapping(value="/recommendation", method = RequestMethod.POST)
+	public List<String> recommendation(@RequestBody RecommendationRequest recommendationRequest) throws SQLException{
+		
+		MealManager mealManager = new MealManager();
+		List<MealPojo> meal = new ArrayList<MealPojo>();
+		
+		FoodManager foodManager = new FoodManager(ConnectionFactory.getConnection());
+		return foodManager.getInsightsAndRecommendation(recommendationRequest.getListMeal(), recommendationRequest.getCaloriesOut());
+		
 	}
 	
 }

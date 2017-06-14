@@ -119,8 +119,10 @@ public class FoodDaoImpl {
 		List<Food> list = new ArrayList<Food>();
 		
 		try {
-			String query = "SELECT * FROM food WHERE " + builder.toString();
+			String query = "SELECT * FROM food WHERE " + builder.toString() + " AND grade = ?";
+			
 			ps = conn.prepareStatement(query);
+			ps.setString(1, "G");
 			
 			ResultSet rs = ps.executeQuery();
 			

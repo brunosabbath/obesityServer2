@@ -2,6 +2,7 @@ package com.sbbi.obesity.insights;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,17 +19,17 @@ public class Recommendation {
 
 	private Connection connection;
 	
-	public List<Food> getRecommendation(Insight insight, List<FrequentItems> listFrequentItems, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
+	public List<String> getRecommendation(Insight insight, List<FrequentItems> listFrequentItems, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
 		
 		buildConnection();
 		
 		FoodDaoImpl dao = new FoodDaoImpl(connection);
 		List<Food> list = dao.list();
 		
-		List<Food> food = getCandidates(insight, myMealList, totalCaloriesIn, totalCaloriesOut);
+		List<String> listResult = getCandidates(insight, myMealList, totalCaloriesIn, totalCaloriesOut);
 		//List<Food> recommendedFood = getRecommendedFood(food, myMealList);
 		//return recommendedFood;
-		return null;
+		return listResult;
 		
 	}
 
@@ -37,19 +38,23 @@ public class Recommendation {
 	 * tenho q pegar a porcao de cada comida no prato
 	 * teneho q pegar comidas que vao deixar minha caloriesIn-caloriesOut = 0 c/ o mesmo amout of food do que a comida ruim
 	 */
-	private List<Food> getCandidates(Insight insight, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
+	private List<String> getCandidates(Insight insight, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
 		List<FrequentItems> unhealthyFood = insight.getUnhealthyFood();
+		List<String> finalResult = new ArrayList<String>();
 		
 		try {
 			FoodManager manager = new FoodManager(ConnectionFactory.getConnection());
 			manager.setFrequentItems(insight.getFrequentFood());
 			manager.listFoodBut(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
 			
+			finalResult.add(manager.getFinalInsight());
+			finalResult.add(manager.getSubstitution());
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return finalResult;
 	}
 
 	private void buildConnection() {

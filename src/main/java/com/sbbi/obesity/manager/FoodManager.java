@@ -20,6 +20,8 @@ import com.sbbi.obesity.response.Response;
 
 public class FoodManager {
 
+	private String finalInsight;
+	private String substitution;
 	private Connection connection;
 	private List<FrequentItems> listFrequentFoodItem;
 	private static final int NO_ID = 0;
@@ -76,9 +78,20 @@ public class FoodManager {
 		Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listHealthyFood, totalCaloriesIn, totalCaloriesOut);
 		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFood);
 		
-		String recommendationInsight = Recommendation.adjustAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
-		System.out.println(recommendationInsight);
+		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + goodFood;
 		
+		String recommendationInsight = Recommendation.adjustAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
+		
+		finalInsight = recommendationInsight;
+		
+	}
+	
+	public String getSubstitution(){
+		return substitution;
+	}
+	
+	public String getFinalInsight(){
+		return finalInsight;
 	}
 
 	private String printBadFood(List<FrequentItems> unhealthyFood) {
@@ -116,26 +129,31 @@ public class FoodManager {
 		this.listFrequentFoodItem = frequentFood;
 	}
 
-	public void getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut, boolean eatingOutside) {
+	public List<String> getInsightsAndRecommendation(List<Meal> myMealList, double totalCaloriesOut) {
+		
+		List<String> listRecommendation = new ArrayList<String>();
 		
 		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
-		
 		double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);
 		
+		listRecommendation.add("Total calories in: " + totalCaloriesIn);
 		System.out.println("Total calories in: " + totalCaloriesIn);
 		
 		AteMuchOrLess ateMuchOrLess = InsightsMethod.ateMuchOrLess(totalCaloriesIn, totalCaloriesOut);
 		
 		if("TOO_MUCH".equals(ateMuchOrLess.name())){
 			//Insights.day(myMealList, totalCaloriesOut);
-			InsightsMethod.week(myMealList, totalCaloriesOut);
+			listRecommendation.add(InsightsMethod.getAnswer());
+			
+			List<String> week = InsightsMethod.week(myMealList, totalCaloriesOut);
+			listRecommendation.add(InsightsMethod.getAnswer());
+			listRecommendation.add(InsightsMethod.getInsight());
+			listRecommendation.add(InsightsMethod.getPercentageResult());
+			listRecommendation.add(week.get(0));
+			listRecommendation.add(week.get(1));
 		}
 		
-		if(eatingOutside){
-			//TODO eating outside
-			//InsightsMethod.eatingOutside()
-		}
-		
+		return listRecommendation;
 	}
 	
 	private boolean foodNotFound(Food food) {

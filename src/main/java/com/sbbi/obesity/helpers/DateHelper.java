@@ -1,5 +1,9 @@
 package com.sbbi.obesity.helpers;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -79,6 +83,29 @@ public class DateHelper {
 	public static java.sql.Timestamp getDinnerEnd() {
 		Calendar myCalendar = new GregorianCalendar(getYear(), getCurrentMonth(), getTodaysDay(), 22, 00);
 		return dateToSql(myCalendar.getTime());
+	}
+
+	public static Timestamp getTodayTimestamp() throws ParseException {
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date today = new Date();
+		Date todayWithZeroTime = formatter.parse(formatter.format(today));
+		return dateToSql(todayWithZeroTime);
+	}
+
+	public static Timestamp getTomorrowTimestamp() throws ParseException {
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Date dt = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(dt); 
+		c.add(Calendar.DATE, 1);
+		dt = c.getTime();
+		
+		String format = formatter.format(dt);
+		
+		Date d = formatter.parse(format);
+		
+		return dateToSql(d);
 	}
 	
 }

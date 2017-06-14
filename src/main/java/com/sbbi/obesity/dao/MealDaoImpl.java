@@ -129,12 +129,12 @@ public class MealDaoImpl {
 				double cholesterol = rs.getDouble(17);
 				
 				if(mealId == previousMealId){
-					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, fatty_acid_trans, cholesterol));
+					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, cholesterol));
 				}
 				else{
 					listMeal.add(meal);
 					meal = new Meal();
-					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, fatty_acid_trans, cholesterol));
+					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, cholesterol));
 				}
 				
 			}
@@ -213,10 +213,10 @@ public class MealDaoImpl {
 		List<Meal> listMeal = new ArrayList<Meal>();
 		
 		try {
-			ps = connection.prepareStatement("SELECT m.id, m.date, m.eatingOutside, m.type_meal, mf.quantity, f.name, f.energy, f.protein, f.lipid, f.carbohydrate, f.fiber, f.sugar, f.fatty_acids_saturated, f.fatty_acids_monounsaturated, f.fatty_acids_polyunsaturated, f.fatty_acid_trans, f.cholesterol  FROM meal AS m " + 
+			ps = connection.prepareStatement("SELECT m.id, m.date, m.eatingOutside, m.type_meal, mf.quantity, f.name, f.energy, f.protein, f.lipid, f.carbohydrate, f.fiber, f.sugar, f.fatty_acids_saturated, f.fatty_acids_monounsaturated, f.fatty_acids_polyunsaturated, f.cholesterol  FROM meal AS m " + 
 												"INNER JOIN mealFood AS mf ON mf.mealId = m.id " + 
 												"INNER JOIN food AS f ON f.id = mf.foodId " +
-												"WHERE m.user_id = ? AND m.date >= ? AND m.date <= ?;");
+												"WHERE m.user_id = ? AND m.date BETWEEN ? AND ?;");
 			ps.setInt(1, userId);
 			ps.setTimestamp(2, startDay);
 			ps.setTimestamp(3, endDay);
@@ -243,16 +243,15 @@ public class MealDaoImpl {
 				double fatty_acids_saturated = rs.getDouble(13);
 				double fatty_acids_monounsaturated = rs.getDouble(14);
 				double fatty_acids_polyunsaturated = rs.getDouble(15);
-				double fatty_acid_trans = rs.getDouble(16);
-				double cholesterol = rs.getDouble(17);
+				double cholesterol = rs.getDouble(16);
 				
 				if(mealId == previousMealId){
-					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, fatty_acid_trans, cholesterol));
+					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, cholesterol));
 				}
 				else{
 					listMeal.add(meal);
 					meal = new Meal();
-					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, fatty_acid_trans, cholesterol));
+					meal.addFood(Builder.buildFood(quantity, foodName, energy, protein, lipid, carbohydrate, fiber, sugar, fatty_acids_saturated, fatty_acids_monounsaturated, fatty_acids_polyunsaturated, cholesterol));
 				}
 				
 			}
