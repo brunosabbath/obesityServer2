@@ -2,6 +2,7 @@ package com.sbbi.obesity.manager;
 import java.sql.Connection;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -49,7 +50,14 @@ public class MealManager {
 		hashFood.put("Rice", new Food(12,"Rice"));
 		hashFood.put("Sandwich bread", new Food(13,"Sandwich bread"));
 	}
-
+	
+	public List<Meal> listTodaysMeals(int userId) throws ParseException{
+		
+		MealDaoImpl dao = new MealDaoImpl(connection);
+		return dao.listTodaysMeals(userId, DateHelper.getTodayTimestamp(), DateHelper.getTomorrowTimestamp());
+		
+	}
+	
 	public void createMeal(Meal meal, double quantity[]){
 		
 		MealDaoImpl mealDao = new MealDaoImpl(connection);

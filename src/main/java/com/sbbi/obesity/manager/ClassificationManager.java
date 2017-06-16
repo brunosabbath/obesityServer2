@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.web.client.RestTemplate;
+
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.helpers.Constraints;
@@ -154,6 +156,24 @@ public class ClassificationManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/*
+	 * 
+	 */
+	public List<String> classification(List<String> imagesPath){
+		
+		List<String> list = new ArrayList<String>();
+		RestTemplate template = new RestTemplate();
+		
+		for(String paths : imagesPath){
+			
+			//String s = template.getForObject("http://localhost:5000/classify?path=/home/bsilva/Desktop/rice.jpg", String.class);
+			String s = template.getForObject("http://localhost:5000/classify?path=" + paths, String.class);
+			list.add(s);
+		}
+		
+		return list;
 	}
 	
 }

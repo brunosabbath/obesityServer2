@@ -1,6 +1,7 @@
 package com.sbbi.obesity.controller;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.manager.FoodManager;
 import com.sbbi.obesity.manager.MealManager;
+import com.sbbi.obesity.model.Meal;
 import com.sbbi.obesity.model.SendMeal;
 import com.sbbi.obesity.model.pojo.MealPojo;
 import com.sbbi.obesity.model.recommendation.RecommendationRequest;
@@ -70,10 +72,13 @@ public class MealController {
 	}
 	
 	@RequestMapping(value="/recommendation", method = RequestMethod.POST)
-	public List<String> recommendation(@RequestBody RecommendationRequest recommendationRequest) throws SQLException{
+	public List<String> recommendation(@RequestBody RecommendationRequest recommendationRequest) throws SQLException, ParseException{
 		
-		MealManager mealManager = new MealManager();
+		MealManager mealManager = new MealManager(ConnectionFactory.getConnection());
 		List<MealPojo> meal = new ArrayList<MealPojo>();
+		
+		List<Meal> listTodaysMeals = mealManager.listTodaysMeals(recommendationRequest.getUserId());
+		recommendationRequest.setListMeal(listTodaysMeals);
 		
 		FoodManager foodManager = new FoodManager(ConnectionFactory.getConnection());
 		return foodManager.getInsightsAndRecommendation(recommendationRequest.getListMeal(), recommendationRequest.getCaloriesOut());
