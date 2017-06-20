@@ -1,10 +1,9 @@
 package com.sbbi.obesity.manager;
 
 import com.mathworks.toolbox.javabuilder.MWException;
+
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import com.sbbi.obesity.model.Food;
-
-import checkBoundry.Metabolic;
 
 public class MetabolicManager {
 
@@ -27,19 +26,18 @@ public class MetabolicManager {
 	}
 	
 	public void runMetabolic(){
-		try {
-			Metabolic metabolic = new Metabolic();
+		
+			//Metabolic metabolic = new Metabolic();
+			//Object[] checkBoundry = metabolic.integratedModel(1, foodArray1, foodArray2, foodArray3);
+			//MWNumericArray result =  (MWNumericArray)checkBoundry[0];
 			
 			//(number of outputs, input1, input2, input3)
-			Object[] checkBoundry = metabolic.integratedModel(1, foodArray1, foodArray2, foodArray3);
-			MWNumericArray result =  (MWNumericArray)checkBoundry[0];
+			
 			//System.out.println(result.get(1));//on x1, result.get(1) is the result of y 
 			//System.out.println(result.get(2));//on x1, result.get(2) is the result of y
 			
 			//now I have to loop through all  
-		} catch (MWException e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 }

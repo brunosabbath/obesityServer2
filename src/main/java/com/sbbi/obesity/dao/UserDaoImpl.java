@@ -12,6 +12,9 @@ import com.sbbi.obesity.model.User;
 public class UserDaoImpl {
 
 	private static final int NOT_FOUND = -1;
+	private static final int SUCCESS = 1;
+	private static final int FAILURE = -1;
+	
 	private Connection connection;
 	
 	public UserDaoImpl(Connection connection) {
@@ -135,6 +138,25 @@ public class UserDaoImpl {
 		}
 		
 		return user;
+	}
+
+	public User updateFinger(User user) {
+		
+		try {
+			
+			PreparedStatement ps = connection.prepareStatement("UPDATE user SET finger_height = ?, finger_width = ? WHERE id = ?");
+			ps.setDouble(1, user.getFingerLength());
+			ps.setDouble(2, user.getFingerWidth());
+			ps.setInt(3, user.getId());
+			ps.executeUpdate();
+			
+			return user;
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 }

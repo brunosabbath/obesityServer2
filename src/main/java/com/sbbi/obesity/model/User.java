@@ -17,11 +17,30 @@ public class User implements Serializable {
 	private double weight;
 	private double height;
 	private char sex;
-
+	private double fingerLength;
+	private double fingerWidth;
+	
+	
 	//bi-directional many-to-one association to Meal
 	private List<Meal> meals;
 
 	public User() {}
+
+	public double getFingerLength() {
+		return fingerLength;
+	}
+
+	public void setFingerLength(double fingerLength) {
+		this.fingerLength = fingerLength;
+	}
+
+	public double getFingerWidth() {
+		return fingerWidth;
+	}
+
+	public void setFingerWidth(double fingerWidth) {
+		this.fingerWidth = fingerWidth;
+	}
 
 	public int getId() {
 		return this.id;

@@ -77,6 +77,11 @@ public class UserManager {
 		}
 	}
 
-	
+	public User updateFinger(User user) {
+		
+		UserDaoImpl dao = new UserDaoImpl(connection);
+		return dao.updateFinger(user);
+		
+	}
 	
 }
