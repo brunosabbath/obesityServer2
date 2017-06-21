@@ -20,15 +20,14 @@ public class UserController {
 	public User saveFinger(@RequestBody User user) {
 
 		UserManager manager = new UserManager();
-		String returnStr = "Finger measures saved";
 		
 		try {
 			manager.addConnection(ConnectionFactory.getConnection());
 			user = manager.updateFinger(user);
+			user.setSex('x');
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			returnStr = "Error trying to save in the database";
 			
 		} finally {
 			manager.close();

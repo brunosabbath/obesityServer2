@@ -1,5 +1,6 @@
 package com.sbbi.obesity.controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,27 +18,24 @@ import com.sbbi.obesity.response.ResponseFood;
 @RequestMapping("/pictures")
 public class PicturesController {
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public @ResponseBody ResponseFood upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
-			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3) {
-		
-		//System.out.println(id);
+			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3, @PathVariable("id") Integer userId) {
 		
 		String paths[] = new String[4];
+		long currentTimeMillis = System.currentTimeMillis();
 		
 		if(top != null)
-			paths[0] = ImageHelper.saveImage(top, "1");
+			paths[0] = ImageHelper.saveImage(top, "1", userId, currentTimeMillis);
 		
 		if(side1 != null)
-			paths[1] = ImageHelper.saveImage(side1, "2");
+			paths[1] = ImageHelper.saveImage(side1, "2", userId, currentTimeMillis);
 		
 		if(side2 != null)
-			paths[2] = ImageHelper.saveImage(side2, "3");
+			paths[2] = ImageHelper.saveImage(side2, "3", userId, currentTimeMillis);
 		
 		if(side3 != null)
-			paths[3] = ImageHelper.saveImage(side3, "4");
-		
-		System.out.println("image uploaded, calling manager");
+			paths[3] = ImageHelper.saveImage(side3, "4", userId, currentTimeMillis);
 		
 		ClassificationManager m = new ClassificationManager(paths);
 		

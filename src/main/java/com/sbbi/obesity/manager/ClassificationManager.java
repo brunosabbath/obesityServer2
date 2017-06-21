@@ -43,6 +43,13 @@ public class ClassificationManager {
 
 	public ResponseFood makePredictions() {
 		
+		//TODO call matlab and separate food in 3 and save in the folder, return pixels for each food and finger
+		/*
+		 * get the timestamp from paths
+		 * send to python API its path is: /home/bsilva/Desktop/sbbi/obesityApp/pythonRest/rest.py
+		 *  
+		 */
+		
 		ResponseFood response = new ResponseFood();
 		
 		String resultArray1[] = new String[TOTAL_FOOD_DB];

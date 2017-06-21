@@ -70,7 +70,7 @@ public class User implements Serializable {
 	}
 	
 	public double getSex() {
-		return this.height;
+		return this.sex;
 	}
 
 	public User setSex(char sex) {
