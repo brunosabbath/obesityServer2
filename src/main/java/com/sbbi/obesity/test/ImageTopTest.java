@@ -17,6 +17,7 @@ public class ImageTopTest {
 	public static void main(String[] args) {
 
 		String path = "/home/bsilva/Desktop/sbbi/obesityApp/images/5/1498078947301/1.jpg";
+		path = "/home/bsilva/Desktop/pow/1.jpg";
 		UploadedImageManager manager = new UploadedImageManager();
 		Pixels pixels = manager.getRelationTopImage(path);
 		System.out.println("done");

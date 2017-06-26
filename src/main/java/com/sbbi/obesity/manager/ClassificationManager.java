@@ -14,6 +14,7 @@ import com.sbbi.obesity.factory.ConnectionFactory;
 import com.sbbi.obesity.helpers.Constraints;
 import com.sbbi.obesity.helpers.FoodClassificationHelper;
 import com.sbbi.obesity.model.Food;
+import com.sbbi.obesity.model.Prediction;
 import com.sbbi.obesity.model.classification.FoodClassification;
 import com.sbbi.obesity.response.ResponseFood;
 
@@ -34,8 +35,7 @@ public class ClassificationManager {
 	private final double MY_FINGER_HEIGHT = 2;//THIS IS MY THUMB
 	private volatile Connection connection; 
 	
-	public ClassificationManager(String[] paths){
-		this.paths = paths;
+	public ClassificationManager(){
 		TOTAL_FOOD_DB = 13;
 		foods = Constraints.foods;
 		fingerArea = MY_FINGER_HEIGHT * MY_FINGER_WIDTH;
@@ -183,21 +183,70 @@ public class ClassificationManager {
 		return list;
 	}
 
-	public void classifyImagesFrom(String path) {
+	public Prediction classifyImagesFrom(String path) {
 		
 		String pathLeft = path + "/left.jpg";
 		String pathRight = path + "/right.jpg";
 		String pathBottom = path + "/bottom.jpg";
 		
 		RestTemplate template = new RestTemplate();
-		String foodLeft = template.getForObject("http://localhost:5000/classify?path=" + pathLeft, String.class);
-		String foodRight = template.getForObject("http://localhost:5000/classify?path=" + pathRight, String.class);
-		String foodBottom = template.getForObject("http://localhost:5000/classify?path=" + pathBottom, String.class);
 		
-		System.out.println(foodLeft);
-		System.out.println(foodRight);
-		System.out.println(foodBottom);
+		List<String> predictionsLeft = predictFoodLeft(pathLeft, template);
+		List<String> predictionsRight = predictFoodRight(pathRight, template);
+		List<String> predictionsBottom = predictFoodBottom(pathBottom, template); 
+
+		Prediction predictions = new Prediction(predictionsLeft, predictionsRight, predictionsBottom);
 		
+		return predictions;
+	}
+
+	private List<String> predictFoodBottom(String pathBottom, RestTemplate template) {
+		return predictFood(pathBottom, template);
+	}
+
+	private List<String> predictFoodRight(String pathRight, RestTemplate template) {
+		return predictFood(pathRight, template);
+	}
+
+	private List<String> predictFoodLeft(String pathLeft, RestTemplate template) {
+		return predictFood(pathLeft, template);
+	}
+	
+	private List<String> predictFood(String path, RestTemplate template) {
+		
+		String prediction = template.getForObject("http://localhost:5000/classify?path=" + path, String.class);
+		String predictionArray[] = prediction.split("\n");
+		
+		String str1 = parsePrediction(predictionArray[6]);
+		String str2 = parsePrediction(predictionArray[7]);
+		String str3 = parsePrediction(predictionArray[8]);
+		String str4 = parsePrediction(predictionArray[9]);
+		String str5 = parsePrediction(predictionArray[10]);
+		
+		List<String> list = new ArrayList<String>();
+		list.add(str1);
+		list.add(str2);
+		list.add(str3);
+		list.add(str4);
+		list.add(str5);
+		
+		return list;
+	}
+
+	private String parsePrediction(String string) {
+		String str = string.substring(75, string.length());
+		int position = 0;
+		
+		for(int i = 0; i < str.length(); i++){
+			if('(' == str.charAt(i)){
+				position = i;
+				i = str.length();
+			}
+		}
+		
+		str = str.substring(0, position);
+		
+		return str.trim();
 	}
 	
 }

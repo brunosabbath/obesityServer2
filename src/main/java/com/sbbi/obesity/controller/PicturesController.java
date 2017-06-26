@@ -14,6 +14,7 @@ import com.sbbi.obesity.helpers.ImageHelper;
 import com.sbbi.obesity.manager.ClassificationManager;
 import com.sbbi.obesity.manager.UploadedImageManager;
 import com.sbbi.obesity.model.Pixels;
+import com.sbbi.obesity.model.Prediction;
 import com.sbbi.obesity.response.ResponseFood;
 
 @RestController
@@ -23,7 +24,7 @@ public class PicturesController {
 	private String basePath = "/home/bsilva/Desktop/sbbi/obesityApp/images/";
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public @ResponseBody ResponseFood upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
+	public @ResponseBody Prediction upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
 			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3, @PathVariable("id") Integer userId) {
 		
 		String paths[] = new String[4];
@@ -45,21 +46,14 @@ public class PicturesController {
 		
 		UploadedImageManager uploadManager = new UploadedImageManager();
 		Pixels pixels = uploadManager.getRelationTopImage(path + "/1.jpg");
-		pixels = uploadManager.getRelationSideImage(path, pixels);
+		//pixels = uploadManager.getRelationSideImage(path, pixels);
 		
-		//ClassificationManager m = new ClassificationManager();
-		//m.classifyImagesFrom(path);
+		ClassificationManager manager = new ClassificationManager();
+		Prediction classifyImagesFrom = manager.classifyImagesFrom(path);
+		classifyImagesFrom.setPath(path);
+		classifyImagesFrom.setPixels(pixels);
 		
-		//ClassificationManager m = new ClassificationManager(paths);
-		
-		//ResponseFood response = m.makePredictions();
-		
-		/*MetabolicManager metabolic = MetabolicBuilder.build(response);
-		metabolic.runMetabolic();*/
-		
-		//return m.makePredictions();
-		return null;
-		
+		return classifyImagesFrom;
 	}
 	
 }

@@ -11,9 +11,9 @@ public class UploadedImageManager {
 
 	public Pixels getRelationTopImage(String path) {
 
-		SegmentationTop segmentationTop;
 		try {
-			segmentationTop = new SegmentationTop();
+			
+			SegmentationTop segmentationTop = new SegmentationTop();
 
 			Object[] segmentationCluster = segmentationTop.SegmentationCluster(3, path);
 
@@ -43,9 +43,8 @@ public class UploadedImageManager {
 	public Pixels getRelationSideImage(String path, Pixels pixels) {
 
 		// path = "/home/bsilva/Desktop/sbbi/obesityApp/images/5/1498078947301"
-		SegmentationSide side;
 		try {
-			side = new SegmentationSide();
+			SegmentationSide side = new SegmentationSide();
 			Object segmentationClusterSide[] = side.SegmentationClusterSide(3, path);
 
 			Object objectSide1 = segmentationClusterSide[0];
