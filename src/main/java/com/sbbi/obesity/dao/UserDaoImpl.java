@@ -159,4 +159,27 @@ public class UserDaoImpl {
 		
 	}
 	
+	public User getUserFinger(User user){
+		
+		PreparedStatement ps = null;
+		
+		try {
+			ps = connection.prepareStatement("SELECT finger_height, finger_width FROM user WHERE id = ?");
+			ps.setInt(1,user.getId());
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()){
+				user.setFingerLength(rs.getDouble(1));
+				user.setFingerWidth(rs.getDouble(2));
+			}
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return user;
+		
+	}
+	
 }

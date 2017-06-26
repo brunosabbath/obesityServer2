@@ -12,12 +12,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sbbi.obesity.helpers.ImageHelper;
 import com.sbbi.obesity.manager.ClassificationManager;
+import com.sbbi.obesity.manager.UploadedImageManager;
+import com.sbbi.obesity.model.Pixels;
 import com.sbbi.obesity.response.ResponseFood;
 
 @RestController
 @RequestMapping("/pictures")
 public class PicturesController {
-
+	
+	private String basePath = "/home/bsilva/Desktop/sbbi/obesityApp/images/";
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public @ResponseBody ResponseFood upload(@RequestParam("file1") MultipartFile top, @RequestParam("file2") MultipartFile side1, 
 			@RequestParam("file3") MultipartFile side2, @RequestParam("file4") MultipartFile side3, @PathVariable("id") Integer userId) {
@@ -37,14 +41,24 @@ public class PicturesController {
 		if(side3 != null)
 			paths[3] = ImageHelper.saveImage(side3, "4", userId, currentTimeMillis);
 		
-		ClassificationManager m = new ClassificationManager(paths);
+		String path = basePath + userId + "/" + currentTimeMillis;
 		
-		/*ResponseFood response = m.makePredictions();
+		UploadedImageManager uploadManager = new UploadedImageManager();
+		Pixels pixels = uploadManager.getRelationTopImage(path + "/1.jpg");
+		pixels = uploadManager.getRelationSideImage(path, pixels);
 		
-		MetabolicManager metabolic = MetabolicBuilder.build(response);
+		//ClassificationManager m = new ClassificationManager();
+		//m.classifyImagesFrom(path);
+		
+		//ClassificationManager m = new ClassificationManager(paths);
+		
+		//ResponseFood response = m.makePredictions();
+		
+		/*MetabolicManager metabolic = MetabolicBuilder.build(response);
 		metabolic.runMetabolic();*/
 		
-		return m.makePredictions();
+		//return m.makePredictions();
+		return null;
 		
 	}
 	

@@ -61,7 +61,7 @@ public class ClassificationManager {
 			ClassifyTop classify = new ClassifyTop();
 			Object result[] = null;
 			result = classify.test(7, paths[TOP]);
-			
+						
 			Object object = result[1];
 			
 			MWNumericArray r = (MWNumericArray) object;
@@ -181,6 +181,23 @@ public class ClassificationManager {
 		}
 		
 		return list;
+	}
+
+	public void classifyImagesFrom(String path) {
+		
+		String pathLeft = path + "/left.jpg";
+		String pathRight = path + "/right.jpg";
+		String pathBottom = path + "/bottom.jpg";
+		
+		RestTemplate template = new RestTemplate();
+		String foodLeft = template.getForObject("http://localhost:5000/classify?path=" + pathLeft, String.class);
+		String foodRight = template.getForObject("http://localhost:5000/classify?path=" + pathRight, String.class);
+		String foodBottom = template.getForObject("http://localhost:5000/classify?path=" + pathBottom, String.class);
+		
+		System.out.println(foodLeft);
+		System.out.println(foodRight);
+		System.out.println(foodBottom);
+		
 	}
 	
 }
