@@ -83,6 +83,10 @@ public class MealController {
 			long timestamp = DateHelper.getTimestamp(prediction.getPath());
 			mealManager.createMeal(foodLeft, foodRight, foodBottom, userId, timestamp, prediction.getTypeMeal());
 			
+			foodLeft.setGrams(estimatedWeightFood1);
+			foodRight.setGrams(estimatedWeightFood2);
+			foodBottom.setGrams(estimatedWeightFood3);
+			
 			FoodsWeightEstimation food = new FoodsWeightEstimation(foodLeft, foodRight, foodBottom, prediction.getTypeMeal());
 			
 			return food;
