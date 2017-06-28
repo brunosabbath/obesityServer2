@@ -23,6 +23,7 @@ public class Meal implements Serializable {
 	public Meal() {
 		foods = new ArrayList<Food>();
 		photos = new ArrayList<Photo>();
+		eatingOutside = false;
 	}
 
 	public boolean isEatingOutside(){

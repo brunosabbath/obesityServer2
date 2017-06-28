@@ -5,9 +5,9 @@ public class Pixels {
 	private double relationTopLeft;
 	private double relationTopRight;
 	private double relationTopBottom;
-	private double relationSide1;
-	private double relationSide2;
-	private double relationSide3;
+	private double relationSide1;//left
+	private double relationSide2;//right
+	private double relationSide3;//bottom
 	
 	public Pixels(){}
 

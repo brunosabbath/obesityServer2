@@ -45,6 +45,8 @@ public class UploadedImageManager {
 		// path = "/home/bsilva/Desktop/sbbi/obesityApp/images/5/1498078947301"
 		try {
 			SegmentationSide side = new SegmentationSide();
+			
+			//this method already calculates the ratio between finger and pixels
 			Object segmentationClusterSide[] = side.SegmentationClusterSide(3, path);
 
 			Object objectSide1 = segmentationClusterSide[0];
@@ -54,7 +56,7 @@ public class UploadedImageManager {
 			MWNumericArray arraySide1 = (MWNumericArray) objectSide1;
 			MWNumericArray arraySide2 = (MWNumericArray) objectSide2;
 			MWNumericArray arraySide3 = (MWNumericArray) objectSide3;
-
+			
 			double relationSide1 = (double) arraySide1.get(1);
 			double relationSide2 = (double) arraySide2.get(1);
 			double relationSide3 = (double) arraySide3.get(1);

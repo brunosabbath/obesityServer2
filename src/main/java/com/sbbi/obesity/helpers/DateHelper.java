@@ -107,5 +107,10 @@ public class DateHelper {
 		
 		return dateToSql(d);
 	}
+
+	public static long getTimestamp(String path) {
+		String str[] = path.split("/");
+		return Long.parseLong(str[8].trim());
+	}
 	
 }

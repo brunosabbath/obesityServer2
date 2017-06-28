@@ -83,5 +83,15 @@ public class UserManager {
 		return dao.updateFinger(user);
 		
 	}
+
+	public double getUserFingerArea(Integer userId) {
+		
+		UserDaoImpl dao = new UserDaoImpl(connection);
+		User user = new User();
+		user.setId(userId);
+		user = dao.getUserFinger(user);
+		
+		return user.getFingerLength() * user.getFingerWidth();
+	}
 	
 }

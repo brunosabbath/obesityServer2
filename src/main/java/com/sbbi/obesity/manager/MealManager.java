@@ -190,5 +190,17 @@ public class MealManager {
 		this.connection = connection;
 		
 	}
+
+	public void createMeal(Food foodLeft, Food foodRight, Food foodBottom, Integer userId, long timestamp, int typeMeal) {
+		
+		MealDaoImpl dao = new MealDaoImpl(connection);
+		Meal meal = new Meal();
+		meal.setTypeMeal(new TypeMeal(typeMeal));
+		meal.setUser(new User(userId));
+		meal.setDate(new Date(timestamp));
+		
+		dao.insert(meal);
+		
+	}
 	
 }

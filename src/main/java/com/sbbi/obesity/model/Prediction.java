@@ -12,6 +12,7 @@ public class Prediction {
 	private Food predictedFoodBottom;
 	private String path;
 	private Pixels pixels;
+	private int typeMeal;
 	
 	public Prediction(){}
 	
@@ -19,6 +20,14 @@ public class Prediction {
 		this.predictionsFoodLeft = predictionsFoodLeft;
 		this.predictionsFoodRight = predictionsFoodRight;
 		this.predictionsFoodBottom = predictionsFoodBottom;
+	}
+	
+	public int getTypeMeal() {
+		return typeMeal;
+	}
+
+	public void setTypeMeal(int typeMeal) {
+		this.typeMeal = typeMeal;
 	}
 
 	public String getPath() {
