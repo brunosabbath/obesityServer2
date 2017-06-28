@@ -94,9 +94,9 @@ public class MealController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
-		} finally {
-			mealManager.close();
-		}
+		}/* finally {
+			//mealManager.close();
+		}*/
 		
 		return null;
 	}

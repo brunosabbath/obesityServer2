@@ -201,6 +201,7 @@ public class MealManager {
 		
 		dao.insert(meal);
 		
+		close();
 	}
 	
 }
