@@ -112,5 +112,10 @@ public class DateHelper {
 		String str[] = path.split("/");
 		return Long.parseLong(str[8].trim());
 	}
+
+	public static String timestampToString(Timestamp timestamp) {
+		String timestampStr = new SimpleDateFormat("MM/dd/yyyy - HH:mm:ss").format(timestamp);
+		return timestampStr;
+	}
 	
 }

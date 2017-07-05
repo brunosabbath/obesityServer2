@@ -114,10 +114,7 @@ public class MealController {
 	//list meals from a given user
 	@RequestMapping(value="/user/{id}", method = RequestMethod.GET)
 	public List<MealPojo> list(@PathVariable Integer id){
-		
-	/*@RequestMapping(method = RequestMethod.GET)
-	public boolean list(){	
-		int userId = 5;*/
+	
 		MealManager mealManager = new MealManager();
 		List<MealPojo> meal = new ArrayList<MealPojo>();
 		

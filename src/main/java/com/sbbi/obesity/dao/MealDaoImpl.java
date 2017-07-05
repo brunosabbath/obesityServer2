@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,10 +169,12 @@ public class MealDaoImpl {
 				
 				String type = rs.getString(3);
 				int mealId = rs.getInt(1);
+				Timestamp timestamp = rs.getTimestamp(2);
 				
 				MealPojo mealPojo = new MealPojo();
 				mealPojo.setType(type);
 				mealPojo.setEatingOutside(eatingOutside);
+				mealPojo.setDate(DateHelper.timestampToString(timestamp));
 				
 				PreparedStatement psFood = connection.prepareStatement("SELECT mf.quantity, f.name, f.energy, f.protein, f.lipid, f.carbohydrate, f.fiber, f.sugar, f.cholesterol " + 
 				"FROM mealFood as mf INNER JOIN food AS f on f.id = mf.foodId WHERE mealId = ?");

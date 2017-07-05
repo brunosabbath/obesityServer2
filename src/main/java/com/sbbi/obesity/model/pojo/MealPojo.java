@@ -3,13 +3,14 @@ package com.sbbi.obesity.model.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.internal.xml.GetterType;
+
 
 public class MealPojo {
 
 	private String type;
 	private boolean eatingOutside;
 	private List<FoodPojo> listFood;
+	private String date;
 	
 	public MealPojo(){
 		listFood = new ArrayList<FoodPojo>();
@@ -38,5 +39,12 @@ public class MealPojo {
 	public void addFood(FoodPojo food) {
 		this.listFood.add(food);
 	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 	
+	public String getDate(){
+		return date;
+	}
 }
