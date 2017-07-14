@@ -15,11 +15,11 @@ public class TestFood {
 		try {
 			FoodDaoImpl dao = new FoodDaoImpl(ConnectionFactory.getConnection());
 			
-			Food food = dao.getByName("apple");
+			Food food = dao.getByName("french_fries");
 			
 			System.out.println(food);
 			
-			food.changeAmountGrams(100);
+			food.changeAmountGrams(80);
 			
 			System.out.println(food);
 			

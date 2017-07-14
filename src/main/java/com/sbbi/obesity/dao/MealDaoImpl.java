@@ -155,7 +155,7 @@ public class MealDaoImpl {
 		List<MealPojo> list = new ArrayList<MealPojo>();
 		
 		try {
-			ps = connection.prepareStatement("SELECT m.id, m.date, tm.type, m.eatingOutside FROM meal AS m INNER JOIN typeMeal AS tm ON tm.id = m.type_meal WHERE m.user_id = ?");
+			ps = connection.prepareStatement("SELECT m.id, m.date, tm.type, m.eatingOutside FROM meal AS m INNER JOIN typeMeal AS tm ON tm.id = m.type_meal WHERE m.user_id = ? ORDER BY m.date DESC");
 			ps.setInt(1,userId);
 			
 			ResultSet rs = ps.executeQuery();

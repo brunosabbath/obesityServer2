@@ -199,7 +199,12 @@ public class MealManager {
 		meal.setUser(new User(userId));
 		meal.setDate(new Date(timestamp));
 		
-		dao.insert(meal);
+		int mealId = dao.insert(meal);
+		
+		MealFoodDaoImpl mealFoodDaoImpl = new MealFoodDaoImpl(connection);
+		mealFoodDaoImpl.insert(mealId, foodLeft.getId(), foodLeft.getGrams());
+		mealFoodDaoImpl.insert(mealId, foodRight.getId(), foodRight.getGrams());
+		mealFoodDaoImpl.insert(mealId, foodBottom.getId(), foodBottom.getGrams());
 		
 		close();
 	}

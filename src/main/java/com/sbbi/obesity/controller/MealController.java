@@ -20,6 +20,7 @@ import com.sbbi.obesity.manager.MealManager;
 import com.sbbi.obesity.manager.UploadedImageManager;
 import com.sbbi.obesity.manager.UserManager;
 import com.sbbi.obesity.model.Food;
+import com.sbbi.obesity.model.FoodWithWeight;
 import com.sbbi.obesity.model.FoodsWeightEstimation;
 import com.sbbi.obesity.model.Meal;
 import com.sbbi.obesity.model.Pixels;
@@ -38,6 +39,9 @@ public class MealController {
 		MealManager mealManager = null;
 		
 		try {
+			
+			List<FoodWithWeight> list = loadListFood();
+			
 			
 			Connection connection = ConnectionFactory.getConnection();
 			
@@ -101,8 +105,36 @@ public class MealController {
 		return null;
 	}
 	
+	private List<FoodWithWeight> loadListFood() {
+		
+		List<FoodWithWeight> list = new ArrayList<FoodWithWeight>();
+		
+		double volume = 10;
+		//TODO correct volume
+		
+		list.add(new FoodWithWeight(40, volume, "cake"));
+		list.add(new FoodWithWeight(120, volume, "cheesecake"));
+		list.add(new FoodWithWeight(25, volume, "Grilled_chicken_breast"));
+		list.add(new FoodWithWeight(35, volume, "Sandwich_bread"));
+		list.add(new FoodWithWeight(50, volume, "cookie"));
+		list.add(new FoodWithWeight(150, volume, "Banana"));
+		list.add(new FoodWithWeight(15, volume, "Chips"));
+		//list.add(new FoodWithWeight(weight, volume, "biscuit"));
+		//list.add(new FoodWithWeight(weight, volume, "cheese"));
+		//list.add(new FoodWithWeight(weight, volume, "ramen"));
+		list.add(new FoodWithWeight(115, volume, "Apple"));
+		list.add(new FoodWithWeight(20, volume, "cereal"));
+		list.add(new FoodWithWeight(25, volume, "beans"));
+		list.add(new FoodWithWeight(5, volume, "Grape"));
+		list.add(new FoodWithWeight(10, volume, "caesar_salad"));
+		
+		return list;
+	}
+
 	private double getRealVolume(Food foodLeft) {
-		// TODO Auto-generated method stub
+		
+		int id = foodLeft.getId();
+		
 		return 1;
 	}
 
