@@ -1,6 +1,7 @@
 package com.sbbi.obesity.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.persistence.*;
@@ -256,6 +257,27 @@ public class Food implements Serializable{
 				" energy: " + this.energy + 
 				" protein: " + this.protein + 
 				" lipids: " + this.lipid;
+	}
+
+	public void formatOutput() {
+		DecimalFormat df = new DecimalFormat("#.00"); 
+		
+		carbohydrate = Double.parseDouble(df.format(carbohydrate));
+		cholesterol = Double.parseDouble(df.format(cholesterol));
+		energy = Double.parseDouble(df.format(energy));
+		fattyAcidsMonounsaturated = Double.parseDouble(df.format(fattyAcidsMonounsaturated));
+		fattyAcidsPolyunsaturated = Double.parseDouble(df.format(fattyAcidsPolyunsaturated));
+		fattyAcidsSaturated = Double.parseDouble(df.format(fattyAcidsSaturated));
+		fattyAcidTrans = Double.parseDouble(df.format(fattyAcidTrans));
+		fiber = Double.parseDouble(df.format(fiber));
+		lipid = Double.parseDouble(df.format(lipid));
+		protein = Double.parseDouble(df.format(protein));
+		sugar = Double.parseDouble(df.format(sugar));
+		calcium = Double.parseDouble(df.format(calcium));
+		iron = Double.parseDouble(df.format(iron));
+		potassium = Double.parseDouble(df.format(potassium));
+		sodium = Double.parseDouble(df.format(sodium));
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package com.sbbi.obesity.controller;
 import java.sql.Connection;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,8 +44,7 @@ public class MealController {
 		
 		try {
 			
-			List<FoodWithWeight> list = loadListFood();
-			
+			loadListFood();
 			
 			Connection connection = ConnectionFactory.getConnection();
 			
@@ -57,14 +57,25 @@ public class MealController {
 			UserManager userManager = new UserManager(connection);
 			double fingerArea = userManager.getUserFingerArea(userId);
 			
+			DecimalFormat df = new DecimalFormat("#.00"); 
+			
 			//calculate area foods
 			double areaFoodLeft = fingerArea * prediction.getPixels().getRelationTopLeft();//food1
 			double areaFoodRight = fingerArea * prediction.getPixels().getRelationTopRight();//food2
 			double areaFoodBottom = fingerArea * prediction.getPixels().getRelationTopBottom();//food3
 			
+			
 			double sideFood1 = fingerArea * prediction.getPixels().getRelationSide1();
 			double sideFood2 = fingerArea * prediction.getPixels().getRelationSide2();
 			double sideFood3 = fingerArea * prediction.getPixels().getRelationSide3();
+			
+			String sideFood1Str = df.format(sideFood1);
+			String sideFood2Str = df.format(sideFood2);
+			String sideFood3Str = df.format(sideFood3);
+			
+			sideFood1 = Double.parseDouble(sideFood1Str);
+			sideFood2 = Double.parseDouble(sideFood2Str);
+			sideFood3 = Double.parseDouble(sideFood3Str);
 			
 			double volumeFood1 = areaFoodLeft * sideFood1;
 			double volumeFood2 = areaFoodRight * sideFood2;
@@ -82,6 +93,14 @@ public class MealController {
 			double estimatedWeightFood3 = (volumeFood3 * getRealWeight(foodBottom)) / getRealVolume(foodBottom);
 			//have to get a measurement base (pixels and weight for all food in the database)
 			
+			String estimatedWeightFood1Str = df.format(estimatedWeightFood1);
+			String estimatedWeightFood2Str = df.format(estimatedWeightFood2);
+			String estimatedWeightFood3Str = df.format(estimatedWeightFood3);
+			
+			estimatedWeightFood1 = Double.parseDouble(estimatedWeightFood1Str);
+			estimatedWeightFood2 = Double.parseDouble(estimatedWeightFood2Str);
+			estimatedWeightFood3 = Double.parseDouble(estimatedWeightFood3Str);
+			
 			foodLeft.changeAmountGrams(estimatedWeightFood1);
 			foodRight.changeAmountGrams(estimatedWeightFood2);
 			foodBottom.changeAmountGrams(estimatedWeightFood3);
@@ -95,7 +114,7 @@ public class MealController {
 			foodBottom.setGrams(estimatedWeightFood3);
 			
 			FoodsWeightEstimation food = new FoodsWeightEstimation(foodLeft, foodRight, foodBottom, prediction.getTypeMeal());
-			
+						
 			return food;
 			
 		} catch (SQLException e) {
@@ -247,6 +266,8 @@ public class MealController {
 	}
 
 	private double getRealWeight(Food food) {
+		
+		System.out.println(food.getName());
 		
 		FoodWithWeight f = foodHash.get(food.getName());
 		

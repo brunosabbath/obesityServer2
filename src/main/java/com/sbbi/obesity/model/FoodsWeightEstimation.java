@@ -39,4 +39,11 @@ public class FoodsWeightEstimation {
 		this.typeFood = typeFood;
 	}
 	
+	public void formatOutput(){
+		this.food1.formatOutput();
+		this.food2.formatOutput();
+		this.food3.formatOutput();
+	}
+	
+	
 }
