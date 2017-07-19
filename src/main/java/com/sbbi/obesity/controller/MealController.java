@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,8 @@ import com.sbbi.obesity.model.recommendation.RecommendationRequest;
 @RestController
 @RequestMapping("/meal")
 public class MealController {
+	
+	private HashMap<String, FoodWithWeight> foodHash;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public FoodsWeightEstimation saveMeal(@RequestBody Prediction prediction, @PathVariable("id") Integer userId){
@@ -105,18 +108,79 @@ public class MealController {
 		return null;
 	}
 	
-	private List<FoodWithWeight> loadListFood() {
+	private void loadListFood() {
 		
-		List<FoodWithWeight> list = new ArrayList<FoodWithWeight>();
-		
-		double volume = 10;
+		foodHash = new HashMap<String, FoodWithWeight>();
 		
 		//weight, volume, food name
-		list.add(new FoodWithWeight(115, volume, "Apple"));
-		list.add(new FoodWithWeight(140, volume, "Banana"));
-		list.add(new FoodWithWeight(6, volume, "Blueberry"));
-		list.add(new FoodWithWeight(20, volume, "Carrot"));
-		list.add(new FoodWithWeight(15, volume, "Chips"));
+		foodHash.put("Apple", new FoodWithWeight(115, 193, "Apple"));
+		foodHash.put("Banana", new FoodWithWeight(140, 209, "Banana"));
+		foodHash.put("Blueberry", new FoodWithWeight(6, 27, "Blueberry"));
+		foodHash.put("Carrot", new FoodWithWeight(20, 48, "Carrot"));
+		foodHash.put("Chips", new FoodWithWeight(15, 97, "Chips"));
+		foodHash.put("Grape", new FoodWithWeight(5, 28, "Grape"));
+		foodHash.put("Orange", new FoodWithWeight(190, 198, "Orange"));
+		foodHash.put("Peach", new FoodWithWeight(130, 191, "Peach"));
+		foodHash.put("Pear", new FoodWithWeight(135, 201, "Pear"));
+		foodHash.put("Raspberry", new FoodWithWeight(8, 29, "Raspberry"));
+		foodHash.put("Rice", new FoodWithWeight(180, 320, "Rice"));
+		foodHash.put("spring_roll", new FoodWithWeight(25, 124, "spring_roll"));
+		foodHash.put("sushi", new FoodWithWeight(50, 105, "sushi"));
+		foodHash.put("apple_pie", new FoodWithWeight(110, 302, "apple_pie"));
+		foodHash.put("bagel", new FoodWithWeight(60, 99, "bagel"));
+		foodHash.put("beans", new FoodWithWeight(25, 99, "beans"));
+		foodHash.put("biscuit", new FoodWithWeight(50, 57, "biscuit"));
+		foodHash.put("burrito", new FoodWithWeight(200, 265, "burrito"));
+		foodHash.put("caesar_salad", new FoodWithWeight(10, 411, "caesar_salad"));
+		foodHash.put("cake", new FoodWithWeight(60, 364, "cake"));
+		foodHash.put("cereal", new FoodWithWeight(20, 305, "cereal"));
+		foodHash.put("cheese", new FoodWithWeight(5, 17, "cheese"));
+		foodHash.put("cheesecake", new FoodWithWeight(120, 438, "cheesecake"));
+		foodHash.put("chicken_wings", new FoodWithWeight(35, 197, "chicken_wings"));
+		foodHash.put("chickpea", new FoodWithWeight(25, 94, "chickpea"));
+		foodHash.put("cinnamon_roll", new FoodWithWeight(55, 92, "cinnamon_roll"));
+		foodHash.put("cookie", new FoodWithWeight(50, 133, "cookie"));
+		foodHash.put("cracker", new FoodWithWeight(10, 43, "cracker"));
+		foodHash.put("croissant", new FoodWithWeight(50, 101, "croissant"));
+		foodHash.put("cup_cakes", new FoodWithWeight(35, 94, "cup_cakes"));
+		foodHash.put("donuts", new FoodWithWeight(60, 101, "donuts"));
+		foodHash.put("egg", new FoodWithWeight(50, 733, "egg"));
+		foodHash.put("eggplant", new FoodWithWeight(25, 130, "eggplant"));
+		foodHash.put("eggs_benedict", new FoodWithWeight(90, 216, "eggs_benedict"));
+		foodHash.put("french_fries", new FoodWithWeight(60, 187, "french_fries"));
+		foodHash.put("grilled_cheese_sandwich", new FoodWithWeight(75, 276, "grilled_cheese_sandwich"));
+		foodHash.put("Grilled_chicken_breast", new FoodWithWeight(25, 199, "Grilled_chicken_breast"));
+		foodHash.put("grilled_salmon", new FoodWithWeight(120, 220, "grilled_salmon"));
+		foodHash.put("hamburger", new FoodWithWeight(240, 1093, "hamburger"));
+		foodHash.put("hotdog", new FoodWithWeight(50, 363, "hotdog"));
+		foodHash.put("lasagna", new FoodWithWeight(160, 195, "lasagna"));
+		foodHash.put("lobster", new FoodWithWeight(450, 351, "lobster"));
+		foodHash.put("marshmallow", new FoodWithWeight(10, 54, "marshmallow"));
+		foodHash.put("mashed_potato", new FoodWithWeight(20, 111, "mashed_potato"));
+		foodHash.put("muffin", new FoodWithWeight(20, 72, "muffin"));
+		foodHash.put("omelet", new FoodWithWeight(80, 130, "omelet"));
+		foodHash.put("pancakes", new FoodWithWeight(50, 99, "pancakes"));
+		foodHash.put("pasta", new FoodWithWeight(160, 337, "pasta"));
+		foodHash.put("pizza", new FoodWithWeight(70, 156, "pizza"));
+		foodHash.put("popcorn", new FoodWithWeight(10, 25, "popcorn"));
+		foodHash.put("potato", new FoodWithWeight(50, 110, "potato"));
+		foodHash.put("pretzel", new FoodWithWeight(30, 45, "pretzel"));
+		foodHash.put("quesadilla", new FoodWithWeight(50, 209, "quesadilla"));
+		foodHash.put("Sandwich_bread", new FoodWithWeight(35, 281, "Sandwich_bread"));
+		foodHash.put("steak", new FoodWithWeight(130, 233, "steak"));
+		foodHash.put("strawberry", new FoodWithWeight(50, 45, "strawberry"));
+		foodHash.put("taco", new FoodWithWeight(40, 198, "taco"));
+		foodHash.put("tofu", new FoodWithWeight(60, 52, "tofu"));
+		foodHash.put("tortilla", new FoodWithWeight(40, 31, "tortilla"));
+		foodHash.put("waffles", new FoodWithWeight(80, 126, "waffles"));
+		
+		/*
+		List<FoodWithWeight> list = new ArrayList<FoodWithWeight>();
+		list.add(new FoodWithWeight(115, 193, "Apple"));
+		list.add(new FoodWithWeight(140, 209, "Banana"));
+		list.add(new FoodWithWeight(6, 27, "Blueberry"));
+		list.add(new FoodWithWeight(20, 48, "Carrot"));
+		list.add(new FoodWithWeight(15, 97, "Chips"));
 		list.add(new FoodWithWeight(5, 28, "Grape"));
 		list.add(new FoodWithWeight(190, 198, "Orange"));
 		list.add(new FoodWithWeight(130, 191, "Peach"));
@@ -172,20 +236,21 @@ public class MealController {
 		list.add(new FoodWithWeight(60, 52, "tofu"));
 		list.add(new FoodWithWeight(40, 31, "tortilla"));
 		list.add(new FoodWithWeight(80, 126, "waffles"));
-		
-		return list;
+		*/
 	}
 
-	private double getRealVolume(Food foodLeft) {
+	private double getRealVolume(Food food) {
 		
-		int id = foodLeft.getId();
+		FoodWithWeight f = foodHash.get(food.getName());
 		
-		return 1;
+		return f.getVolume();
 	}
 
-	private double getRealWeight(Food foodLeft) {
-		// TODO Auto-generated method stub
-		return 1;
+	private double getRealWeight(Food food) {
+		
+		FoodWithWeight f = foodHash.get(food.getName());
+		
+		return f.getWeight();
 	}
 
 	//list meals from a given user
