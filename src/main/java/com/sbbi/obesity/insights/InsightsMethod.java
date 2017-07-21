@@ -1,5 +1,6 @@
 package com.sbbi.obesity.insights;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +32,11 @@ public class InsightsMethod {
 	public static AteMuchOrLess ateMuchOrLess(double totalCaloriesIn, double totalCaloriesOut) {
 		answer = "";
 		double energyBalance = totalCaloriesIn - totalCaloriesOut;
+		
+		DecimalFormat df = new DecimalFormat("#.00");
+		energyBalance = Double.parseDouble(df.format(energyBalance).replace(',', '.'));
+		totalCaloriesOut = Double.parseDouble(df.format(totalCaloriesOut).replace(',', '.'));
+		
 		System.out.println("Energy balance: " + energyBalance);
 		
 		if(tooMuch(energyBalance)){
@@ -102,6 +108,8 @@ public class InsightsMethod {
 		FrequentItems highestProtein = new FrequentItems();
 		FrequentItems highestSugars = new FrequentItems();
 		
+		DecimalFormat df = new DecimalFormat("#.00");
+		
 		for(FrequentItems f : listFrequentItems){
 			totalCarbs = totalCarbs + f.getCarbs();
 			totalProtein = totalProtein + f.getProtein();
@@ -120,6 +128,11 @@ public class InsightsMethod {
 			}
 			
 		}
+		
+		totalCarbs = Double.parseDouble(df.format(totalCarbs).replace(',', '.'));
+		totalProtein = Double.parseDouble(df.format(totalProtein).replace(',', '.'));
+		totalSugar = Double.parseDouble(df.format(totalSugar).replace(',', '.'));
+		totalCaloriesIn = Double.parseDouble(df.format(totalCaloriesIn).replace(',', '.'));
 		
 		Collections.sort(listFrequentItems, new FrequentItemsComparator());
 		
@@ -160,12 +173,19 @@ public class InsightsMethod {
 		for(FrequentItems freqFood : listFrequentItems){
 			double percentage = (freqFood.getCalories() * 100) / totalCaloriesIn;
 			
+			DecimalFormat df = new DecimalFormat("#.00");
+			percentage = Double.parseDouble(df.format(percentage).replace(',', '.'));
+			
 			NumberFormat nf = NumberFormat.getInstance();
-		    nf.setMinimumFractionDigits(7);
+		    nf.setMinimumFractionDigits(2);
 		    String pct = nf.format(percentage);
 			
+		    
+		    
 		    if(percentage > THRESHOLD_BAD_FOOD || freqFood.getGrade() == 'Y' || freqFood.getGrade() == 'R')
 		    	listUnhealthyFood.add(freqFood);
+
+		    freqFood.formatOutput();
 		    
 			System.out.println(freqFood + "\tPercentage: " + pct);
 			

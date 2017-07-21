@@ -2,6 +2,7 @@ package com.sbbi.obesity.manager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -76,9 +77,13 @@ public class FoodManager {
 		List<Food> listHealthyFood = dao.listFoodBut(unhealthyFood);
 		
 		Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listHealthyFood, totalCaloriesIn, totalCaloriesOut);
-		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFood);
 		
-		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + goodFood;
+		String goodFoodStr = goodFood.toString().replace('[', ' ');
+		goodFoodStr = goodFoodStr.replace(']', ' ');
+		
+		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFoodStr);
+		
+		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + goodFoodStr;
 		
 		String recommendationInsight = Recommendation.adjustAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
 		
@@ -135,6 +140,10 @@ public class FoodManager {
 		
 		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
 		double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);
+		
+		DecimalFormat df = new DecimalFormat("#.00");
+		
+		totalCaloriesIn = Double.parseDouble(df.format(totalCaloriesIn).replace(',', '.'));
 		
 		listRecommendation.add("Total calories in: " + totalCaloriesIn);
 		System.out.println("Total calories in: " + totalCaloriesIn);

@@ -1,5 +1,7 @@
 package com.sbbi.obesity.model;
 
+import java.text.DecimalFormat;
+
 public class FrequentItems implements Comparable<FrequentItems>{
 
 	private int frequency;
@@ -106,6 +108,16 @@ public class FrequentItems implements Comparable<FrequentItems>{
 	@Override
 	public String toString() {
 		return "Food: " + name + "\tCalories: " + calories + "\tcarbs: " + carbs + "\tsugars: " + sugars + "\tprotein: " + protein + "\tFrequency: " + frequency;
+	}
+
+	public void formatOutput() {
+		DecimalFormat df = new DecimalFormat("#.00");
+		
+		calories = Double.parseDouble(df.format(calories).replace(',', '.'));
+		carbs = Double.parseDouble(df.format(carbs).replace(',', '.'));
+		sugars = Double.parseDouble(df.format(sugars).replace(',', '.'));
+		protein = Double.parseDouble(df.format(protein).replace(',', '.'));
+		grams = Double.parseDouble(df.format(grams).replace(',', '.'));
 	}
 	
 }
