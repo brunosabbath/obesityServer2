@@ -29,7 +29,7 @@ public class MealManager {
 	public MealManager(Connection connection) {
 		this.connection = connection;
 		hashFood = new HashMap<>();
-		createFoodHash();
+		//createFoodHash();
 	}
 
 	public MealManager() {}

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class FoodManager {
 		
 	}
 	
-	public void listFoodBut(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut) {
+	public void listFoodBut(List<FrequentItems> unhealthyFood, double totalCaloriesIn, double totalCaloriesOut, List<FrequentItems> frequentItems) {
 		
 		FoodDaoImpl dao = new FoodDaoImpl(connection);
 		
@@ -74,16 +75,33 @@ public class FoodManager {
 			unhealthyFood = getTopCandidatesForUnhealthyFoodFromFrequentItems(getFrequentItems());
 		}
 		
-		List<Food> listHealthyFood = dao.listFoodBut(unhealthyFood);
+		List<FrequentItems> allFoods = new ArrayList<FrequentItems>();
 		
-		Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listHealthyFood, totalCaloriesIn, totalCaloriesOut);
+		for(FrequentItems f : frequentItems)
+			allFoods.add(f);
 		
-		String goodFoodStr = goodFood.toString().replace('[', ' ');
-		goodFoodStr = goodFoodStr.replace(']', ' ');
+		for(FrequentItems f : unhealthyFood)
+			allFoods.add(f);
 		
-		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFoodStr);
+		List<Food> listHealthyFood = dao.listFoodBut(allFoods);
 		
-		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + goodFoodStr;
+		Collections.shuffle(listHealthyFood);
+		
+		//Set<String> goodFood = Recommendation.getOnlyGoodFood(unhealthyFood, listHealthyFood, totalCaloriesIn, totalCaloriesOut);
+		
+		//String goodFoodStr = goodFood.toString().replace('[', ' ');
+		//goodFoodStr = goodFoodStr.replace(']', ' ');
+		
+		List<String> recommendations = new ArrayList<String>();
+		recommendations.add(listHealthyFood.get(0).getName());
+		recommendations.add(listHealthyFood.get(1).getName());
+		recommendations.add(listHealthyFood.get(2).getName());
+		recommendations.add(listHealthyFood.get(3).getName());
+		recommendations.add(listHealthyFood.get(4).getName());
+		
+		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + recommendations);
+		
+		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + recommendations;
 		
 		String recommendationInsight = Recommendation.adjustAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
 		
@@ -138,7 +156,8 @@ public class FoodManager {
 		
 		List<String> listRecommendation = new ArrayList<String>();
 		
-		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);
+		List<FrequentItems> listFrequentItems = FrequentItemsHelper.listFrequentItems(myMealList);//frequent items
+		
 		double totalCaloriesIn = FrequentItemsHelper.calculateCaloriesIn(listFrequentItems);
 		
 		DecimalFormat df = new DecimalFormat("#.00");

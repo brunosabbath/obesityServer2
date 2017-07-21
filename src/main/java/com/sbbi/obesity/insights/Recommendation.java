@@ -3,6 +3,7 @@ package com.sbbi.obesity.insights;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class Recommendation {
 		FoodDaoImpl dao = new FoodDaoImpl(connection);
 		List<Food> list = dao.list();
 		
-		List<String> listResult = getCandidates(insight, myMealList, totalCaloriesIn, totalCaloriesOut);
+		List<String> listResult = getCandidates(insight, myMealList, totalCaloriesIn, totalCaloriesOut, listFrequentItems);
 		//List<Food> recommendedFood = getRecommendedFood(food, myMealList);
 		//return recommendedFood;
 		return listResult;
@@ -37,15 +38,18 @@ public class Recommendation {
 	 * algo que va substituir essa ma comida na refeicao: tem q ser uma comida q nao esta presente na refeicao e que va substituir a ma comida
 	 * tenho q pegar a porcao de cada comida no prato
 	 * teneho q pegar comidas que vao deixar minha caloriesIn-caloriesOut = 0 c/ o mesmo amout of food do que a comida ruim
+	 * @param listFrequentItems 
 	 */
-	private List<String> getCandidates(Insight insight, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut) {
+	private List<String> getCandidates(Insight insight, List<Meal> myMealList, double totalCaloriesIn, double totalCaloriesOut, List<FrequentItems> listFrequentItems) {
+		
 		List<FrequentItems> unhealthyFood = insight.getUnhealthyFood();
+		
 		List<String> finalResult = new ArrayList<String>();
 		
 		try {
 			FoodManager manager = new FoodManager(ConnectionFactory.getConnection());
 			manager.setFrequentItems(insight.getFrequentFood());
-			manager.listFoodBut(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
+			manager.listFoodBut(unhealthyFood, totalCaloriesIn, totalCaloriesOut, listFrequentItems);
 			
 			finalResult.add(manager.getFinalInsight());
 			finalResult.add(manager.getSubstitution());
@@ -90,9 +94,19 @@ public class Recommendation {
 		
 		Set<String> setBestFood = new HashSet<String>();
 		
-		for(FrequentItems badFood : unhealthyFood){
+		Collections.shuffle(listFood);
+		
+		setBestFood.add(listFood.get(0).getName());
+		setBestFood.add(listFood.get(1).getName());
+		setBestFood.add(listFood.get(2).getName());
+		setBestFood.add(listFood.get(3).getName());
+		setBestFood.add(listFood.get(4).getName());
+		
+		/*for(FrequentItems badFood : unhealthyFood){
 			
 			double caloriesInWithoutBadFood = totalCaloriesIn - badFood.getCalories();
+			
+			//Collections.shuffle(listFood);
 			
 			for(Food goodFood : listFood){
 				
@@ -104,7 +118,7 @@ public class Recommendation {
 					setBestFood.add(goodFood.getName());
 				}
 			}
-		}
+		}*/
 		
 		return setBestFood;
 	}
