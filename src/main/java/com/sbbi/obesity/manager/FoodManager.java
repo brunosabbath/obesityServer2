@@ -99,9 +99,12 @@ public class FoodManager {
 		recommendations.add(listHealthyFood.get(3).getName());
 		recommendations.add(listHealthyFood.get(4).getName());
 		
-		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + recommendations);
+		String goodFoodStr = recommendations.toString().replace('[', ' ');
+		goodFoodStr = goodFoodStr.replace(']', ' ');
 		
-		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + recommendations;
+		System.out.println("You can substitute " + printBadFood(unhealthyFood) + "for " + goodFoodStr);
+		
+		substitution = "You can substitute " + printBadFood(unhealthyFood) + "for " + goodFoodStr;
 		
 		String recommendationInsight = Recommendation.adjustAmountUnhealthyFoodToBecomeOk(unhealthyFood, totalCaloriesIn, totalCaloriesOut);
 		
