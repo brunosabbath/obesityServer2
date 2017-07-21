@@ -114,7 +114,8 @@ public class MealController {
 			foodBottom.setGrams(estimatedWeightFood3);
 			
 			FoodsWeightEstimation food = new FoodsWeightEstimation(foodLeft, foodRight, foodBottom, prediction.getTypeMeal());
-						
+			food.formatOutput();
+			
 			return food;
 			
 		} catch (SQLException e) {

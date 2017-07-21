@@ -224,11 +224,11 @@ public class ClassificationManager {
 		String str5 = parsePrediction(predictionArray[10]);
 		
 		List<String> list = new ArrayList<String>();
-		list.add(str1);
-		list.add(str2);
-		list.add(str3);
-		list.add(str4);
-		list.add(str5);
+		list.add(str1.replace(' ', '_'));
+		list.add(str2.replace(' ', '_'));
+		list.add(str3.replace(' ', '_'));
+		list.add(str4.replace(' ', '_'));
+		list.add(str5.replace(' ', '_'));
 		
 		return list;
 	}
